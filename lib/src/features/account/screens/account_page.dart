@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hci_app/src/features/delivery_tracking/screens/delivery_tracking_page.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -63,6 +64,24 @@ class AccountPage extends StatelessWidget {
             title: 'Phone Number',
             content: '+92 3482234578',
             icon: Icons.phone,
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DeliveryTrackingPage()),
+                );
+              },
+              icon: const Icon(Icons.track_changes),
+              label: const Text('Track Order'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4CAF50),
+                foregroundColor: Colors.white,
+              ),
+            ),
           ),
         ],
       ),

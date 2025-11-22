@@ -5,8 +5,21 @@ import 'package:hci_app/src/core/widgets/product_card.dart';
 import 'package:hci_app/src/features/categories/screens/categories_page.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 
-class LandingPage extends StatelessWidget {
+class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
+
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +70,10 @@ class LandingPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const CustomTextField(
+                    CustomTextField(
+                      controller: _searchController,
                       hintText: 'Search for groceries',
-                      prefixIcon: Icon(Icons.search, color: Color(0xFFBDBDBD)),
+                      prefixIcon: const Icon(Icons.search, color: Color(0xFFBDBDBD)),
                     ),
                   ],
                 ),

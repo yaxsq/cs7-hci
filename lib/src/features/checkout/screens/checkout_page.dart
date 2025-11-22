@@ -10,6 +10,8 @@ class CheckoutPage extends StatefulWidget {
 
 class _CheckoutPageState extends State<CheckoutPage> {
   int _currentStep = 0;
+  int _selectedAddress = 1;
+  int _selectedPayment = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -85,16 +87,24 @@ class _CheckoutPageState extends State<CheckoutPage> {
           title: const Text('Home', style: TextStyle(color: Colors.white)),
           subtitle: const Text('123 Green Grocer Lane, Freshville, 90210', style: TextStyle(color: Colors.white70)),
           value: 1,
-          groupValue: 1, // Example value
-          onChanged: (value) {},
+          groupValue: _selectedAddress,
+          onChanged: (value) {
+            setState(() {
+              _selectedAddress = value as int;
+            });
+          },
           activeColor: const Color(0xFF4CAF50),
         ),
         RadioListTile(
           title: const Text('Work', style: TextStyle(color: Colors.white)),
           subtitle: const Text('456 Business Park Ave, Suite 500, Metro City, 10001', style: TextStyle(color: Colors.white70)),
           value: 2,
-          groupValue: 1, // Example value
-          onChanged: (value) {},
+          groupValue: _selectedAddress,
+          onChanged: (value) {
+            setState(() {
+              _selectedAddress = value as int;
+            });
+          },
           activeColor: const Color(0xFF4CAF50),
         ),
         TextButton.icon(
@@ -114,8 +124,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
         RadioListTile(
           title: const Text('Visa **** 1234', style: TextStyle(color: Colors.white)),
           value: 1,
-          groupValue: 1, // Example value
-          onChanged: (value) {},
+          groupValue: _selectedPayment,
+          onChanged: (value) {
+            setState(() {
+              _selectedPayment = value as int;
+            });
+          },
           activeColor: const Color(0xFF4CAF50),
           secondary: const Icon(Icons.credit_card, color: Colors.white),
         ),
@@ -135,7 +149,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         const Text('Review your order:', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 16),
         const Text('Delivery Address:', style: TextStyle(color: Colors.white70)),
-        const Text('123 Green Grocer Lane, Freshville, 90210', style: TextStyle(color: Colors.white)),
+        Text(_selectedAddress == 1 ? '123 Green Grocer Lane, Freshville, 90210' : '456 Business Park Ave, Suite 500, Metro City, 10001', style: const TextStyle(color: Colors.white)),
         const SizedBox(height: 16),
         const Text('Payment Method:', style: TextStyle(color: Colors.white70)),
         const Text('Visa **** 1234', style: TextStyle(color: Colors.white)),
