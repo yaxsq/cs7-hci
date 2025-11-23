@@ -35,8 +35,10 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-          path: '/categories',
-          builder: (context, state) => const CategoriesPage(),
+          path: '/categories/:category',
+          builder: (context, state) => CategoriesPage(
+            category: state.pathParameters['category']!,
+          ),
         ),
         GoRoute(
           path: '/cart',

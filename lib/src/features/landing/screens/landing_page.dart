@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hci_app/src/core/widgets/custom_text_field.dart';
 import 'package:hci_app/src/core/widgets/category_chip.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
+import 'package:hci_app/src/features/models/dummy_products.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
+import 'package:hci_app/src/features/models/dummy_products.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -24,18 +26,8 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Product> weeklyDeals = [
-      Product(id: '1', name: 'Organic Eggs', description: '', price: 3.99, oldPrice: 4.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '2', name: 'Sourdough Bread', description: '', price: 2.00, oldPrice: 3.50, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '3', name: 'Organic Milk', description: '', price: 2.00, oldPrice: 2.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '4', name: 'Cheddar Cheese', description: '', price: 5.49, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-    ];
-
-    final List<Product> freshProduce = [
-      Product(id: '5', name: 'Avocados', description: '', price: 1.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '6', name: 'Bananas', description: '', price: 0.59, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '7', name: 'Strawberries', description: '', price: 3.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-    ];
+    final List<Product> weeklyDeals = dummyProducts.sublist(0, 4);
+    final List<Product> freshProduce = dummyProducts.sublist(4, 7);
 
     return Scaffold(
       backgroundColor: Colors.black, // Assuming a dark background for the scaffold
@@ -108,7 +100,7 @@ class _LandingPageState extends State<LandingPage> {
                                             setState(() {
                                               _selectedCategory = 'All';
                                             });
-                                            GoRouter.of(context).go('/categories');
+                                            GoRouter.of(context).go('/categories/All');
                                           },
                                         ),
                                         const SizedBox(width: 8),
@@ -120,7 +112,7 @@ class _LandingPageState extends State<LandingPage> {
                                             setState(() {
                                               _selectedCategory = 'Fruits';
                                             });
-                                            GoRouter.of(context).go('/categories');
+                                            GoRouter.of(context).go('/categories/Fruits');
                                           },
                                         ),
                                         const SizedBox(width: 8),
@@ -132,7 +124,7 @@ class _LandingPageState extends State<LandingPage> {
                                             setState(() {
                                               _selectedCategory = 'Dairy';
                                             });
-                                            GoRouter.of(context).go('/categories');
+                                            GoRouter.of(context).go('/categories/Dairy');
                                           },
                                         ),
                                         const SizedBox(width: 8),
@@ -144,7 +136,7 @@ class _LandingPageState extends State<LandingPage> {
                                             setState(() {
                                               _selectedCategory = 'Bakery';
                                             });
-                                            GoRouter.of(context).go('/categories');
+                                            GoRouter.of(context).go('/categories/Bakery');
                                           },
                                         ),
                                         const SizedBox(width: 8),
@@ -156,7 +148,7 @@ class _LandingPageState extends State<LandingPage> {
                                             setState(() {
                                               _selectedCategory = 'Vegetables';
                                             });
-                                            GoRouter.of(context).go('/categories');
+                                            GoRouter.of(context).go('/categories/Vegetables');
                                           },
                                         ),
                                         const SizedBox(width: 8),
@@ -168,7 +160,7 @@ class _LandingPageState extends State<LandingPage> {
                                             setState(() {
                                               _selectedCategory = 'Meat';
                                             });
-                                            GoRouter.of(context).go('/categories');
+                                            GoRouter.of(context).go('/categories/Meat');
                                           },
                                         ),
                                       ],
@@ -203,7 +195,7 @@ class _LandingPageState extends State<LandingPage> {
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
                       ),
                       TextButton(
-                        onPressed: () => GoRouter.of(context).go('/categories'),
+                        onPressed: () => GoRouter.of(context).go('/categories/Weekly Deals'),
                         child: Text(
                           'See All',
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(color: const Color(0xFF4CAF50)),
@@ -243,7 +235,7 @@ class _LandingPageState extends State<LandingPage> {
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
                       ),
                       TextButton(
-                        onPressed: () => GoRouter.of(context).go('/categories'),
+                        onPressed: () => GoRouter.of(context).go('/categories/Fresh Produce'),
                         child: Text(
                           'See All',
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(color: const Color(0xFF4CAF50)),

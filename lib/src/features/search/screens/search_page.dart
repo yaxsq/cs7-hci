@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hci_app/src/core/widgets/custom_text_field.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
+import 'package:hci_app/src/features/models/dummy_products.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -141,14 +142,3 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 // Dummy products for demonstration. In a real app, this would come from a service.
-final List<Product> dummyProducts = [
-  Product(id: '1', name: 'Organic Eggs', description: 'A dozen of our finest organic eggs.', price: 3.99, oldPrice: 4.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-  Product(id: '2', name: 'Sourdough Bread', description: 'Freshly baked sourdough bread.', price: 2.00, oldPrice: 3.50, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-  Product(id: '3', name: 'Organic Milk', description: 'A gallon of fresh organic milk.', price: 2.00, oldPrice: 2.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-  Product(id: '4', name: 'Cheddar Cheese', description: 'A block of sharp cheddar cheese.', price: 5.49, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-  Product(id: '5', name: 'Avocados', description: 'A bag of ripe avocados.', price: 1.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-  Product(id: '6', name: 'Bananas', description: 'A bunch of sweet bananas.', price: 0.59, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-  Product(id: '7', name: 'Strawberries', description: 'A punnet of fresh strawberries.', price: 3.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-  Product(id: '8', name: 'Broccoli', description: 'Fresh broccoli florets.', price: 2.49, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-  Product(id: '9', name: 'Apples', description: 'Crisp red apples.', price: 1.50, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-];

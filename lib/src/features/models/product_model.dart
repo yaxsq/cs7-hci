@@ -5,6 +5,7 @@ class Product {
   final double price;
   final double? oldPrice;
   final String imageUrl;
+  final String category;
 
   Product({
     required this.id,
@@ -13,5 +14,6 @@ class Product {
     required this.price,
     this.oldPrice,
     required this.imageUrl,
+    required this.category,
   });
 }
