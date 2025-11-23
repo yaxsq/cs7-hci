@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hci_app/src/core/widgets/custom_bottom_nav_bar.dart';
 import 'package:hci_app/src/features/landing/screens/landing_page.dart';
 import 'package:hci_app/src/features/categories/screens/categories_page.dart';
+import 'package:hci_app/src/features/search/screens/search_page.dart';
 import 'package:hci_app/src/features/cart/screens/cart_page.dart';
 import 'package:hci_app/src/features/account/screens/account_page.dart';
 
@@ -17,7 +18,7 @@ class _ShellPageState extends State<ShellPage> {
 
   static const List<Widget> _pages = <Widget>[
     LandingPage(),
-    CategoriesPage(),
+    SearchPage(),
     CartPage(),
     AccountPage(),
   ];

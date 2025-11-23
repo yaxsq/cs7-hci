@@ -1,188 +1,727 @@
-// ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:hci_app/src/features/checkout/screens/payment_page.dart';
 
-class CheckoutPage extends StatefulWidget {
+class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
-
-  @override
-  State<CheckoutPage> createState() => _CheckoutPageState();
-}
-
-class _CheckoutPageState extends State<CheckoutPage> {
-  int _currentStep = 0;
-  int _selectedAddress = 1;
-  int _selectedPayment = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text('Checkout'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          },
-        ),
       ),
-      body: Theme(
-        data: Theme.of(context).copyWith(
-          colorScheme: const ColorScheme.dark(
-            primary: Color(0xFF4CAF50), // Green for stepper
+      body: SingleChildScrollView(
+        child: Frame(),
+      ),
+    );
+  }
+}
+
+class Frame extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 592.81,
+          height: 1185.62,
+          decoration: BoxDecoration(color: const Color(0xFF121212)),
+          child: Stack(
+            children: [
+              Positioned(
+                left: 0,
+                top: 0,
+                child: Container(
+                  width: 592.81,
+                  height: 1185.62,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        left: 123.50,
+                        top: 0,
+                        child: Container(
+                          width: 345.81,
+                          height: 1185.62,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                left: 0,
+                                top: 123.50,
+                                child: Container(
+                                  width: 345.81,
+                                  height: 1062.12,
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        left: -132.69,
+                                        top: 13.31,
+                                        child: SizedBox(
+                                          width: 363.96,
+                                          height: 52.22,
+                                          child: Text(
+                                            'Delivery Address',
+                                            style: TextStyle(
+                                              color: const Color(0xFFE0E0E0),
+                                              fontSize: 43.98,
+                                              fontFamily: 'Work Sans',
+                                              fontWeight: FontWeight.w700,
+                                              height: 1.25,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: -145.04,
+                                top: 0.19,
+                                child: Container(
+                                  width: 615.69,
+                                  height: 219.89,
+                                  decoration:
+                                      BoxDecoration(color: const Color(0xFF121212)),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        left: 32.96,
+                                        top: 30.23,
+                                        child: Container(
+                                          width: 33.01,
+                                          height: 38.48,
+                                          child: Stack(),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 251.22,
+                                        top: 34.01,
+                                        child: SizedBox(
+                                          width: 113.68,
+                                          height: 30.92,
+                                          child: Text(
+                                            'Checkout',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: const Color(0xFFE0E0E0),
+                                              fontSize: 24.74,
+                                              fontFamily: 'Work Sans',
+                                              fontWeight: FontWeight.w700,
+                                              height: 1.25,
+                                              letterSpacing: -0.37,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 538.73,
+                                        top: 21.99,
+                                        child:
+                                            Container(width: 54.97, height: 54.97),
+                                      ),
+                                      Positioned(
+                                        left: 52.76,
+                                        top: 115.44,
+                                        child: Container(
+                                          width: 43.98,
+                                          height: 43.98,
+                                          decoration: ShapeDecoration(
+                                            color: const Color(0xFF66BB6A),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(13741.66),
+                                            ),
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                left: 10.99,
+                                                top: 8.25,
+                                                child: Container(
+                                                  width: 21.99,
+                                                  height: 27.49,
+                                                  child: Stack(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 41.89,
+                                        top: 170.41,
+                                        child: SizedBox(
+                                          width: 66.21,
+                                          height: 21.99,
+                                          child: Text(
+                                            'Address',
+                                            style: TextStyle(
+                                              color: const Color(0xFF66BB6A),
+                                              fontSize: 16.49,
+                                              fontFamily: 'Work Sans',
+                                              fontWeight: FontWeight.w700,
+                                              height: 1.33,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 138.53,
+                                        top: 152.55,
+                                        child: Container(
+                                          width: 105.55,
+                                          height: 2.75,
+                                          decoration: BoxDecoration(
+                                              color: const Color(0xFF424242)),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 285.83,
+                                        top: 115.44,
+                                        child: Container(
+                                          width: 43.98,
+                                          height: 43.98,
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                width: 2.75,
+                                                color: const Color(0xFF424242),
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(13741.66),
+                                            ),
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                left: 10.99,
+                                                top: 8.25,
+                                                child: Container(
+                                                  width: 21.99,
+                                                  height: 27.49,
+                                                  child: Stack(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 272.69,
+                                        top: 170.41,
+                                        child: SizedBox(
+                                          width: 70.77,
+                                          height: 21.99,
+                                          child: Text(
+                                            'Payment',
+                                            style: TextStyle(
+                                              color: const Color(0x7FE0E0E0),
+                                              fontSize: 16.49,
+                                              fontFamily: 'Work Sans',
+                                              fontWeight: FontWeight.w500,
+                                              height: 1.33,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 371.60,
+                                        top: 152.55,
+                                        child: Container(
+                                          width: 105.55,
+                                          height: 2.75,
+                                          decoration: BoxDecoration(
+                                              color: const Color(0xFF424242)),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 518.91,
+                                        top: 115.44,
+                                        child: Container(
+                                          width: 43.98,
+                                          height: 43.98,
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                width: 2.75,
+                                                color: const Color(0xFF424242),
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(13741.66),
+                                            ),
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                left: 11,
+                                                top: 8.25,
+                                                child: Container(
+                                                  width: 21.99,
+                                                  height: 27.49,
+                                                  child: Stack(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 512.46,
+                                        top: 170.41,
+                                        child: SizedBox(
+                                          width: 57.32,
+                                          height: 21.99,
+                                          child: Text(
+                                            'Review',
+                                            style: TextStyle(
+                                              color: const Color(0x7FE0E0E0),
+                                              fontSize: 16.49,
+                                              fontFamily: 'Work Sans',
+                                              fontWeight: FontWeight.w500,
+                                              height: 1.33,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: -123.69,
+                                top: 1116.81,
+                                child: Container(
+                                  width: 592.81,
+                                  height: 68.70,
+                                  decoration:
+                                      BoxDecoration(color: const Color(0xFF121212)),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        left: 123.50,
+                                        top: 0,
+                                        child: Container(
+                                          width: 345.81,
+                                          height: 68.70,
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                width: 0.77,
+                                                color: const Color(0xFF424242),
+                                              ),
+                                            ),
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                left: 20.31,
+                                                top: -0.11,
+                                                child: Container(
+                                                  width: 306,
+                                                  height: 50,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: ShapeDecoration(
+                                                    color: const Color(0xFF103414),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(14.19),
+                                                    ),
+                                                  ),
+                                                  child: Stack(
+                                                    children: [
+                                                      Positioned(
+                                                        left: 55.87,
+                                                        top: 10.92,
+                                                        child: Container(
+                                                          width: 194.24,
+                                                          height: 28.38,
+                                                          clipBehavior: Clip.antiAlias,
+                                                          decoration: BoxDecoration(),
+                                                          child: Stack(
+                                                            children: [
+                                                              Positioned(
+                                                                left: 0,
+                                                                top: 2.36,
+                                                                child: SizedBox(
+                                                                  width: 194.63,
+                                                                  height: 22.47,
+                                                                  child: Text(
+                                                                    'Cancel Order',
+                                                                    textAlign:
+                                                                        TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      color: const Color(
+                                                                          0xFFD9D9D9),
+                                                                      fontSize: 18.92,
+                                                                      fontFamily:
+                                                                          'Work Sans',
+                                                                      fontWeight:
+                                                                          FontWeight.w700,
+                                                                      height: 1.50,
+                                                                      letterSpacing:
+                                                                          0.28,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: -72.69,
+                                top: 1010.81,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PaymentPage()),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 491.96,
+                                    height: 66.23,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: ShapeDecoration(
+                                      color: const Color(0xFF66BB6A),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(14.19),
+                                      ),
+                                      shadows: [
+                                        BoxShadow(
+                                          color: Color(0x4C66BB6A),
+                                          blurRadius: 7.10,
+                                          offset: Offset(0, 4.73),
+                                          spreadRadius: -4.73,
+                                        )
+                                      ],
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        Positioned(
+                                          left: 148.87,
+                                          top: 18.92,
+                                          child: Container(
+                                            width: 194.24,
+                                            height: 28.38,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(),
+                                            child: Stack(
+                                              children: [
+                                                Positioned(
+                                                  left: 0,
+                                                  top: 2.36,
+                                                  child: SizedBox(
+                                                    width: 194.63,
+                                                    height: 22.47,
+                                                    child: Text(
+                                                      'Proceed to Payment',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        color:
+                                                            const Color(0xFF121212),
+                                                        fontSize: 18.92,
+                                                        fontFamily: 'Work Sans',
+                                                        fontWeight: FontWeight.w700,
+                                                        height: 1.50,
+                                                        letterSpacing: 0.28,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: 10.81,
+                        top: 236.81,
+                        child: Container(
+                          width: 571.71,
+                          height: 116.82,
+                          decoration: ShapeDecoration(
+                            color: const Color(0xFF1E1E1E),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                width: 2.75,
+                                color: const Color(0xFF66BB6A),
+                              ),
+                              borderRadius: BorderRadius.circular(16.49),
+                            ),
+                            shadows: [
+                              BoxShadow(
+                                color: Color(0x0C000000),
+                                blurRadius: 2.75,
+                                offset: Offset(0, 1.37),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                left: 24.74,
+                                top: 24.74,
+                                child: SizedBox(
+                                  width: 63.31,
+                                  height: 32.98,
+                                  child: Text(
+                                    'Home',
+                                    style: TextStyle(
+                                      color: const Color(0xFFE0E0E0),
+                                      fontSize: 21.99,
+                                      fontFamily: 'Work Sans',
+                                      fontWeight: FontWeight.w700,
+                                      height: 1.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: 24.74,
+                                top: 63.22,
+                                child: SizedBox(
+                                  width: 380.61,
+                                  height: 28.86,
+                                  child: Text(
+                                    '123 Green Grocer Lane, Freshville, 90210',
+                                    style: TextStyle(
+                                      color: const Color(0xB2E0E0E0),
+                                      fontSize: 19.24,
+                                      fontFamily: 'Work Sans',
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: 513.99,
+                                top: 41.92,
+                                child: Container(
+                                  width: 32.98,
+                                  height: 32.98,
+                                  decoration: ShapeDecoration(
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 2.75,
+                                        color: const Color(0xFF66BB6A),
+                                      ),
+                                      borderRadius: BorderRadius.circular(32.98),
+                                    ),
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        left: 0,
+                                        top: 0,
+                                        child: Container(
+                                          width: 32.98,
+                                          height: 32.98,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(),
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                left: 0,
+                                                top: 0,
+                                                child: Container(
+                                                  width: 32.98,
+                                                  height: 32.98,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(),
+                                                  child: Stack(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: 10.81,
+                        top: 375.62,
+                        child: Container(
+                          width: 571.71,
+                          height: 145.68,
+                          decoration: ShapeDecoration(
+                            color: const Color(0xFF1E1E1E),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                width: 2.75,
+                                color: const Color(0xFF424242),
+                              ),
+                              borderRadius: BorderRadius.circular(16.49),
+                            ),
+                            shadows: [
+                              BoxShadow(
+                                color: Color(0x0C000000),
+                                blurRadius: 2.75,
+                                offset: Offset(0, 1.37),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                left: 24.74,
+                                top: 24.74,
+                                child: SizedBox(
+                                  width: 57.52,
+                                  height: 32.98,
+                                  child: Text(
+                                    'Work',
+                                    style: TextStyle(
+                                      color: const Color(0xFFE0E0E0),
+                                      fontSize: 21.99,
+                                      fontFamily: 'Work Sans',
+                                      fontWeight: FontWeight.w700,
+                                      height: 1.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: 24.74,
+                                top: 65.97,
+                                child: SizedBox(
+                                  width: 424.74,
+                                  height: 50.85,
+                                  child: Text(
+                                    '''456 Business Park Ave, Suite 500, Metro City,
+10001''',
+                                    style: TextStyle(
+                                      color: const Color(0xB2E0E0E0),
+                                      fontSize: 19.24,
+                                      fontFamily: 'Work Sans',
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: 513.99,
+                                top: 56.35,
+                                child: Container(
+                                  width: 32.98,
+                                  height: 32.98,
+                                  decoration: ShapeDecoration(
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 2.75,
+                                        color: const Color(0xFF424242),
+                                      ),
+                                      borderRadius: BorderRadius.circular(32.98),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: 10.81,
+                        top: 559.77,
+                        child: Container(
+                          width: 571.71,
+                          height: 76.96,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: ShapeDecoration(
+                            color: const Color(0x3366BB6A),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.49),
+                            ),
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                left: 166.44,
+                                top: 19.24,
+                                child: Container(
+                                  width: 33.01,
+                                  height: 38.48,
+                                  child: Stack(),
+                                ),
+                              ),
+                              Positioned(
+                                left: 210.45,
+                                top: 21.99,
+                                child: Container(
+                                  width: 194.81,
+                                  height: 32.98,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        left: 0,
+                                        top: 2.75,
+                                        child: SizedBox(
+                                          width: 195.23,
+                                          height: 26.11,
+                                          child: Text(
+                                            'Add New Address',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: const Color(0xFFE1E1E1),
+                                              fontSize: 21.99,
+                                              fontFamily: 'Work Sans',
+                                              fontWeight: FontWeight.w700,
+                                              height: 1.50,
+                                              letterSpacing: 0.33,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        child: Stepper(
-          type: StepperType.horizontal,
-          currentStep: _currentStep,
-          onStepContinue: () {
-            if (_currentStep < 2) {
-              setState(() {
-                _currentStep += 1;
-              });
-            } else {
-              // Complete the checkout
-            }
-          },
-          onStepCancel: () {
-            if (_currentStep > 0) {
-              setState(() {
-                _currentStep -= 1;
-              });
-            }
-          },
-          steps: [
-            Step(
-              title: const Text('Address'),
-              content: _buildAddressStep(),
-              isActive: _currentStep >= 0,
-              state: _currentStep > 0 ? StepState.complete : StepState.indexed,
-            ),
-            Step(
-              title: const Text('Payment'),
-              content: _buildPaymentStep(),
-              isActive: _currentStep >= 1,
-              state: _currentStep > 1 ? StepState.complete : StepState.indexed,
-            ),
-            Step(
-              title: const Text('Review'),
-              content: _buildReviewStep(),
-              isActive: _currentStep >= 2,
-              state: _currentStep >= 2 ? StepState.complete : StepState.indexed,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAddressStep() {
-    return Column(
-      children: [
-        const Text('Select a delivery address:', style: TextStyle(color: Colors.white)),
-        const SizedBox(height: 16),
-        RadioListTile(
-          title: const Text('Home', style: TextStyle(color: Colors.white)),
-          subtitle: const Text('123 Green Grocer Lane, Freshville, 90210', style: TextStyle(color: Colors.white70)),
-          value: 1,
-          groupValue: _selectedAddress,
-          onChanged: (value) {
-            setState(() {
-              _selectedAddress = value as int;
-            });
-          },
-          activeColor: const Color(0xFF4CAF50),
-        ),
-        RadioListTile(
-          title: const Text('Work', style: TextStyle(color: Colors.white)),
-          subtitle: const Text('456 Business Park Ave, Suite 500, Metro City, 10001', style: TextStyle(color: Colors.white70)),
-          value: 2,
-          groupValue: _selectedAddress,
-          onChanged: (value) {
-            setState(() {
-              _selectedAddress = value as int;
-            });
-          },
-          activeColor: const Color(0xFF4CAF50),
-        ),
-        TextButton.icon(
-          onPressed: () {},
-          icon: const Icon(Icons.add, color: Color(0xFF4CAF50)),
-          label: const Text('Add New Address', style: TextStyle(color: Color(0xFF4CAF50))),
-        )
-      ],
-    );
-  }
-
-  Widget _buildPaymentStep() {
-    return Column(
-      children: [
-        const Text('Select a payment method:', style: TextStyle(color: Colors.white)),
-        const SizedBox(height: 16),
-        RadioListTile(
-          title: const Text('Visa **** 1234', style: TextStyle(color: Colors.white)),
-          value: 1,
-          groupValue: _selectedPayment,
-          onChanged: (value) {
-            setState(() {
-              _selectedPayment = value as int;
-            });
-          },
-          activeColor: const Color(0xFF4CAF50),
-          secondary: const Icon(Icons.credit_card, color: Colors.white),
-        ),
-        TextButton.icon(
-          onPressed: () {},
-          icon: const Icon(Icons.add, color: Color(0xFF4CAF50)),
-          label: const Text('Add New Payment Method', style: TextStyle(color: Color(0xFF4CAF50))),
-        )
-      ],
-    );
-  }
-
-  Widget _buildReviewStep() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Review your order:', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 16),
-        const Text('Delivery Address:', style: TextStyle(color: Colors.white70)),
-        Text(_selectedAddress == 1 ? '123 Green Grocer Lane, Freshville, 90210' : '456 Business Park Ave, Suite 500, Metro City, 10001', style: const TextStyle(color: Colors.white)),
-        const SizedBox(height: 16),
-        const Text('Payment Method:', style: TextStyle(color: Colors.white70)),
-        const Text('Visa **** 1234', style: TextStyle(color: Colors.white)),
-        const SizedBox(height: 16),
-        const Text('Order Summary:', style: TextStyle(color: Colors.white70)),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Subtotal (3 items)', style: TextStyle(color: Colors.white)),
-            Text('\$28.55', style: TextStyle(color: Colors.white)),
-          ],
-        ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Delivery Fee', style: TextStyle(color: Colors.white)),
-            Text('\$3.99', style: TextStyle(color: Colors.white)),
-          ],
-        ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Taxes & Fees', style: TextStyle(color: Colors.white)),
-            Text('\$1.96', style: TextStyle(color: Colors.white)),
-          ],
-        ),
-        const Divider(color: Colors.grey),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Total', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
-            Text('\$34.50', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
-          ],
         ),
       ],
     );

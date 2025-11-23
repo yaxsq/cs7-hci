@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hci_app/src/features/delivery_tracking/screens/delivery_tracking_page.dart';
+import 'package:hci_app/src/features/delivery_tracking/screens/map_screen.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -51,16 +52,19 @@ class AccountPage extends StatelessWidget {
 
           // Information Sections
           _buildInfoSection(
+            context: context,
             title: 'Delivery Address',
             content: 'Jane Doe\n2464 Royal Ln. Mesa, New Jersey 45463',
             icon: Icons.location_on,
           ),
           _buildInfoSection(
+            context: context,
             title: 'Email',
             content: 'syedrafayahmeds@gmail.com',
             icon: Icons.email,
           ),
           _buildInfoSection(
+            context: context,
             title: 'Phone Number',
             content: '+92 3482234578',
             icon: Icons.phone,
@@ -88,7 +92,12 @@ class AccountPage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoSection({required String title, required String content, required IconData icon}) {
+  Widget _buildInfoSection({
+    required BuildContext context,
+    required String title,
+    required String content,
+    required IconData icon,
+  }) {
     return Card(
       color: const Color(0xFF1E1E1E),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -97,7 +106,14 @@ class AccountPage extends StatelessWidget {
         title: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         subtitle: Text(content, style: const TextStyle(color: Colors.white70)),
         trailing: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            if (title == 'Delivery Address') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MapScreen()),
+              );
+            }
+          },
           child: const Text('Change', style: TextStyle(color: Color(0xFF4CAF50))),
         ),
       ),

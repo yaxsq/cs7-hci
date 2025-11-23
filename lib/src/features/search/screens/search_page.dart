@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hci_app/src/core/widgets/custom_bottom_nav_bar.dart';
-import 'package:hci_app/src/core/widgets/custom_text_field.dart';
+import 'package:hci_app/src/features/models/product_model.dart';
+import 'package:hci_app/src/core/widgets/product_card.dart'; // Assuming a search result card is similar to product card
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -10,145 +10,93 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  int _selectedIndex = 1; // For bottom navigation bar
+  final TextEditingController _searchController = TextEditingController();
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    // Handle navigation to different pages based on index
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Dummy data for search results
+    final List<Product> searchResults = [
+      Product(id: '1', name: 'Organic Milk', description: 'Half Gallon', price: 4.99, imageUrl: 'https://www.figma.com/api/mcp/asset/e7cb9305-8788-4fe2-aeea-7d26d4b84e3b'),
+      Product(id: '2', name: 'Clover Sonoma Organic', description: 'Half Gallon', price: 2.99, imageUrl: 'https://www.figma.com/api/mcp/asset/ac3289d2-eb36-488b-99be-8cbe80edf9dd'),
+      Product(id: '3', name: 'Stonyfield Organic Whole Milk', description: 'Half Gallon', price: 4.99, imageUrl: 'https://www.figma.com/api/mcp/asset/8ef3a749-4422-4042-a476-6dd873d7fd13'),
+      Product(id: '4', name: 'Maple Hill Grass-Fed Whole Milk', description: 'Half Gallon', price: 4.99, imageUrl: 'https://www.figma.com/api/mcp/asset/65b2bc63-5776-4882-ac8c-f87eb5229578'),
+    ];
+
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text('Search Results'),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: CustomTextField(
-              hintText: 'organic milk',
-              prefixIcon: const Icon(Icons.search, color: Color(0xFFBDBDBD)),
-              controller: TextEditingController(text: 'organic milk'),
-            ),
-          ),
-        ),
-      ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Showing 25 results',
-                  style: TextStyle(color: Colors.white70),
-                ),
-                Row(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: const Text('Search Results'),
+            backgroundColor: Colors.black,
+            pinned: true,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(120.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
-                    TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.filter_list, color: Colors.white),
-                      label: const Text('Filter', style: TextStyle(color: Colors.white)),
+                    TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'organic milk',
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: const Icon(Icons.clear),
+                        filled: true,
+                        fillColor: Colors.grey[800],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
                     ),
-                    TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.sort, color: Colors.white),
-                      label: const Text('Sort', style: TextStyle(color: Colors.white)),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Showing 25 results', style: TextStyle(color: Colors.white70)),
+                        Row(
+                          children: [
+                            TextButton.icon(
+                              onPressed: () {},
+                              icon: const Icon(Icons.filter_list),
+                              label: const Text('Filter'),
+                            ),
+                            TextButton.icon(
+                              onPressed: () {},
+                              icon: const Icon(Icons.sort),
+                              label: const Text('Sort'),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-          _buildSearchResultItem(
-            imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef',
-            title: 'Horizon Organic Whole Milk',
-            subtitle: 'Half Gallon',
-            price: '.99',
-          ),
-          _buildSearchResultItem(
-            imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef',
-            title: 'Stonyfield Organic Whole Milk',
-            subtitle: 'Half Gallon',
-            price: '.99',
-          ),
-          _buildSearchResultItem(
-            imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef',
-            title: 'Maple Hill Grass-Fed Whole Milk',
-            subtitle: 'Half Gallon',
-            price: '.99',
-          ),
-          _buildSearchResultItem(
-            imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef',
-            title: 'Clover Sonoma Organic',
-            subtitle: 'Half Gallon',
-            price: '.99',
-          ),
-          const SizedBox(height: 20),
-          Center(
-            child: TextButton(
-              onPressed: () {},
-              child: const Text('Show More', style: TextStyle(color: Color(0xFF4CAF50))),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: SizedBox(
+                    height: 268,
+                    child: ProductCard(product: searchResults[index]),
+                  ), // Reusing ProductCard for now
+                );
+              },
+              childCount: searchResults.length,
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
-    );
-  }
-
-  Widget _buildSearchResultItem({
-    required String imageUrl,
-    required String title,
-    required String subtitle,
-    required String price,
-  }) {
-    return Card(
-      color: const Color(0xFF1E1E1E),
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: [
-            Image.network(
-              imageUrl,
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 4),
-                  Text(subtitle, style: const TextStyle(color: Colors.white70)),
-                  const SizedBox(height: 8),
-                  Text(price, style: const TextStyle(color: Color(0xFFAADD78), fontSize: 16)),
-                ],
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4CAF50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              child: const Text('Add'),
-            ),
-          ],
-        ),
       ),
     );
   }

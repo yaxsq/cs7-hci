@@ -24,16 +24,16 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     final List<Product> weeklyDeals = [
-      Product(id: '1', name: 'Organic Eggs', description: '', price: 3.99, oldPrice: 4.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '2', name: 'Sourdough Bread', description: '', price: 2.00, oldPrice: 3.50, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '3', name: 'Organic Milk', description: '', price: 2.00, oldPrice: 2.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '4', name: 'Cheddar Cheese', description: '', price: 5.49, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
+      Product(id: '1', name: 'Organic Eggs', description: 'A dozen of our finest organic eggs.', price: 3.99, oldPrice: 4.99, imageUrl: 'https://www.figma.com/api/mcp/asset/fcee011d-f2e7-4102-88dc-41ed3590d413'),
+      Product(id: '2', name: 'Sourdough Bread', description: 'Freshly baked sourdough bread.', price: 2.00, oldPrice: 3.50, imageUrl: 'https://www.figma.com/api/mcp/asset/d155d3cb-27c0-4b28-9fa8-9eb31478f7d8'),
+      Product(id: '3', name: 'Organic Milk', description: 'Half gallon of our best organic milk.', price: 2.00, oldPrice: 2.99, imageUrl: 'https://www.figma.com/api/mcp/asset/ac3289d2-eb36-488b-99be-8cbe80edf9dd'),
+      Product(id: '4', name: 'Cheddar Cheese', description: 'A block of sharp cheddar cheese.', price: 5.49, imageUrl: 'https://www.figma.com/api/mcp/asset/e995fb1e-3c29-4569-ba32-5e8560f12baf'),
     ];
 
     final List<Product> freshProduce = [
-      Product(id: '5', name: 'Avocados', description: '', price: 1.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '6', name: 'Bananas', description: '', price: 0.59, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
-      Product(id: '7', name: 'Strawberries', description: '', price: 3.99, imageUrl: 'https://www.figma.com/api/mcp/asset/a61aaf82-3192-4f8a-9f02-6d195d487fef'),
+      Product(id: '5', name: 'Avocados', description: 'A bag of fresh avocados.', price: 1.99, imageUrl: 'https://www.figma.com/api/mcp/asset/4a12f1ee-dde5-4356-b95b-5485fed03e8c'),
+      Product(id: '6', name: 'Bananas', description: 'A bunch of ripe bananas.', price: 0.59, imageUrl: 'https://www.figma.com/api/mcp/asset/4ce4eb8b-9704-4c00-9e64-4143bb4b88eb'),
+      Product(id: '7', name: 'Strawberries', description: 'A pint of fresh strawberries.', price: 3.99, imageUrl: 'https://www.figma.com/api/mcp/asset/fca53eb9-b874-41d4-8a5c-2169645e8dfc'),
     ];
 
     return Scaffold(
@@ -42,7 +42,7 @@ class _LandingPageState extends State<LandingPage> {
         slivers: [
           SliverAppBar(
             backgroundColor: Colors.transparent,
-            expandedHeight: 180, // Height of the top section (DELIVER TO + Search)
+            expandedHeight: 200, // Height of the top section (DELIVER TO + Search)
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 padding: const EdgeInsets.all(16.0),
@@ -177,7 +177,10 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Handle see all tap
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const CategoriesPage()),
+                          );
                         },
                         child: Text(
                           'See All',

@@ -1,119 +1,109 @@
 import 'package:flutter/material.dart';
-import 'package:hci_app/src/core/widgets/custom_button.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 import 'package:provider/provider.dart';
-import 'package:hci_app/src/features/models/cart_model.dart';
 
 class ItemListingPage extends StatelessWidget {
   final Product product;
+
   const ItemListingPage({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartModel>(context, listen: false);
     return Scaffold(
-      backgroundColor: Colors.black,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: 300.0,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                product.imageUrl,
+              background: CachedNetworkImage(
+                imageUrl: product.imageUrl,
                 fit: BoxFit.cover,
+                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
-              },
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.share),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.favorite_border),
-                onPressed: () {},
-              ),
-            ],
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    '\$${product.price.toStringAsFixed(2)}',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 16.0),
+                  const Divider(),
+                  const SizedBox(height: 16.0),
+                  Text(
+                    'Description',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    product.description,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 16.0),
+                  const Divider(),
+                  const SizedBox(height: 16.0),
+                  Text(
+                    'Nutritional Information',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  // Add nutritional information here
+                  const SizedBox(height: 24.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        product.name,
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        '\${product.price.toStringAsFixed(2)} / each',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(color: const Color(0xFFAADD78)),
-                      ),
-                      const SizedBox(height: 16),
-                      // Quantity Selector
+                      const Text('Quantity'),
                       Row(
                         children: [
-                          const Text('Quantity', style: TextStyle(color: Colors.white, fontSize: 16)),
-                          const Spacer(),
                           IconButton(
-                            icon: const Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                            icon: const Icon(Icons.remove),
+                            onPressed: () {
+                              // Handle quantity decrease
+                            },
                           ),
-                          const Text('1', style: TextStyle(color: Colors.white, fontSize: 18)),
+                          const Text('1'), // Placeholder for quantity
                           IconButton(
-                            icon: const Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                            icon: const Icon(Icons.add),
+                            onPressed: () {
+                              // Handle quantity increase
+                            },
                           ),
                         ],
-                      ),
-                      const Divider(color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Description',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        product.description,
-                        style: const TextStyle(color: Colors.white70, fontSize: 14),
-                      ),
-                      const SizedBox(height: 16),
-                      const Divider(color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Nutritional Information',
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
-                          ),
-                          const Icon(Icons.keyboard_arrow_right, color: Colors.white),
-                        ],
-                      ),
-                      const SizedBox(height: 32),
-                      CustomButton(
-                        text: 'Add to Cart',
-                        onPressed: () {
-                          cart.add(product);
-                        },
-                        width: double.infinity,
-                        height: 50,
                       ),
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 24.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      final cart = Provider.of<CartModel>(context, listen: false);
+                      cart.add(product);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${product.name} added to cart'),
+                          duration: const Duration(seconds: 1),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    child: const Text('Add to Cart'),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

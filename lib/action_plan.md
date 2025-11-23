@@ -125,3 +125,38 @@ For managing the application's state (e.g., the contents of the shopping cart, u
 -   **Testing:** We will write unit and widget tests for our core components and business logic to ensure the app is robust and reliable.
 
 This refined plan provides a clear roadmap for developing the KraveMart app efficiently, leveraging `get_design_context` for precise component implementation.
+
+## 5. Accessibility Features
+
+To enhance the application's usability for all users, we will implement a set of accessibility features. This will involve creating a new screen at the beginning of the app to allow users to select their preferred accessibility settings.
+
+### Step 1: Accessibility Options Screen
+
+-   **Create a new screen:** This screen will be displayed when the app is first launched. It will be modeled after the `VoucherList` screen (`63:405`) for design consistency.
+-   **Options:** The screen will present the following options:
+    -   **Larger Font:** A toggle or button to increase the font size across the application.
+    -   **Light Mode with High Contrast:** A toggle or button to switch to a new high-contrast theme.
+    -   **Voice Assisted / Narrated Mode:** A toggle or button to enable voice assistance (initially, this will not change the UI).
+-   **"Continue" Button:** A button to apply the selected settings and proceed to the main application.
+
+### Step 2: State Management for Accessibility
+
+-   **Accessibility Provider:** Create a new `ChangeNotifier` provider (`AccessibilityProvider`) to manage the state of the accessibility options. This provider will store the user's choices (e.g., `isLargeFont`, `isHighContrast`, `isNarratorMode`).
+-   **Persistent Storage:** Use a package like `shared_preferences` to save the user's accessibility settings, so they don't have to set them every time they open the app.
+
+### Step 3: Implementing the Accessibility Features
+
+-   **Larger Font:**
+    -   Modify the `AppTheme` in `lib/src/core/theme/app_theme.dart` to define a separate `TextTheme` with larger font sizes.
+    -   Conditionally apply the larger font `TextTheme` based on the `isLargeFont` value from the `AccessibilityProvider`.
+-   **Light Mode with High Contrast:**
+    -   Define a new `ColorScheme` in `lib/src/core/theme/app_theme.dart` with high-contrast colors.
+    -   Create a new `ThemeData` object for the high-contrast theme.
+    -   Conditionally apply the high-contrast theme based on the `isHighContrast` value from the `AccessibilityProvider`.
+-   **Voice Assisted / Narrated Mode:**
+    -   For now, this option will only update the `isNarratorMode` value in the `AccessibilityProvider`. No UI changes will be implemented at this stage.
+
+### Step 4: App Entry Point Modification
+
+-   **Modify `main.dart`:** Update the app's entry point to show the new accessibility options screen first. After the user makes their selection and taps "Continue," the app will navigate to the main landing page.
+-   **Theme and Font Application:** The root `MaterialApp` widget will listen to the `AccessibilityProvider` to apply the selected theme and font size dynamically.
