@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hci_app/src/core/router/app_router.dart';
 import 'package:hci_app/src/core/theme/app_theme.dart';
-import 'package:hci_app/src/features/shell/screens/shell_page.dart';
 import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
+import 'package:hci_app/src/features/models/order_history_model.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => CartModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CartModel()),
+        ChangeNotifierProvider(create: (context) => OrderHistoryModel()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -18,10 +22,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'KraveMart',
       theme: AppTheme.lightTheme,
-      home: const ShellPage(),
+      routerConfig: router,
     );
   }
 }

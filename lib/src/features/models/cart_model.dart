@@ -15,15 +15,15 @@ class CartModel extends ChangeNotifier {
     return total;
   }
 
-  void add(Product product) {
+  void add(Product product, {int quantity = 1}) {
     for (var item in _items) {
       if (item.product.id == product.id) {
-        item.quantity++;
+        item.quantity += quantity;
         notifyListeners();
         return;
       }
     }
-    _items.add(CartItem(product: product));
+    _items.add(CartItem(product: product, quantity: quantity));
     notifyListeners();
   }
 
@@ -43,6 +43,11 @@ class CartModel extends ChangeNotifier {
     } else {
       _items.remove(cartItem);
     }
+    notifyListeners();
+  }
+
+  void clearCart() {
+    _items.clear();
     notifyListeners();
   }
 }

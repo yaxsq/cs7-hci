@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hci_app/src/core/widgets/custom_text_field.dart';
 import 'package:hci_app/src/core/widgets/category_chip.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
-import 'package:hci_app/src/features/categories/screens/categories_page.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 
 class LandingPage extends StatefulWidget {
@@ -14,6 +14,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   final TextEditingController _searchController = TextEditingController();
+  String _selectedCategory = 'All';
 
   @override
   void dispose() {
@@ -70,10 +71,15 @@ class _LandingPageState extends State<LandingPage> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    CustomTextField(
-                      controller: _searchController,
-                      hintText: 'Search for groceries',
-                      prefixIcon: const Icon(Icons.search, color: Color(0xFFBDBDBD)),
+                    GestureDetector(
+                      onTap: () => GoRouter.of(context).go('/search'),
+                      child: AbsorbPointer(
+                        child: CustomTextField(
+                          controller: _searchController,
+                          hintText: 'Search for groceries',
+                          prefixIcon: const Icon(Icons.search, color: Color(0xFFBDBDBD)),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -84,30 +90,92 @@ class _LandingPageState extends State<LandingPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                
                 // Category Chips
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: SizedBox(
-                    height: 40, // Height of the chips
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      children: [
-                        const CategoryChip(text: 'All', icon: Icons.apps, isSelected: true),
-                        const SizedBox(width: 8),
-                        const CategoryChip(text: 'Fruits', icon: Icons.apple),
-                        const SizedBox(width: 8),
-                        const CategoryChip(text: 'Dairy', icon: Icons.water_drop),
-                        const SizedBox(width: 8),
-                        const CategoryChip(text: 'Bakery', icon: Icons.cake),
-                        const SizedBox(width: 8),
-                        const CategoryChip(text: 'Vegetables', icon: Icons.eco),
-                        const SizedBox(width: 8),
-                        const CategoryChip(text: 'Meat', icon: Icons.fastfood),
-                      ],
-                    ),
-                  ),
-                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                  child: SizedBox(
+                                    height: 40, // Height of the chips
+                                    child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                      children: [
+                                        CategoryChip(
+                                          text: 'All',
+                                          icon: Icons.apps,
+                                          isSelected: _selectedCategory == 'All',
+                                          onPressed: () {
+                                            setState(() {
+                                              _selectedCategory = 'All';
+                                            });
+                                            GoRouter.of(context).go('/categories');
+                                          },
+                                        ),
+                                        const SizedBox(width: 8),
+                                        CategoryChip(
+                                          text: 'Fruits',
+                                          icon: Icons.apple,
+                                          isSelected: _selectedCategory == 'Fruits',
+                                          onPressed: () {
+                                            setState(() {
+                                              _selectedCategory = 'Fruits';
+                                            });
+                                            GoRouter.of(context).go('/categories');
+                                          },
+                                        ),
+                                        const SizedBox(width: 8),
+                                        CategoryChip(
+                                          text: 'Dairy',
+                                          icon: Icons.water_drop,
+                                          isSelected: _selectedCategory == 'Dairy',
+                                          onPressed: () {
+                                            setState(() {
+                                              _selectedCategory = 'Dairy';
+                                            });
+                                            GoRouter.of(context).go('/categories');
+                                          },
+                                        ),
+                                        const SizedBox(width: 8),
+                                        CategoryChip(
+                                          text: 'Bakery',
+                                          icon: Icons.cake,
+                                          isSelected: _selectedCategory == 'Bakery',
+                                          onPressed: () {
+                                            setState(() {
+                                              _selectedCategory = 'Bakery';
+                                            });
+                                            GoRouter.of(context).go('/categories');
+                                          },
+                                        ),
+                                        const SizedBox(width: 8),
+                                        CategoryChip(
+                                          text: 'Vegetables',
+                                          icon: Icons.eco,
+                                          isSelected: _selectedCategory == 'Vegetables',
+                                          onPressed: () {
+                                            setState(() {
+                                              _selectedCategory = 'Vegetables';
+                                            });
+                                            GoRouter.of(context).go('/categories');
+                                          },
+                                        ),
+                                        const SizedBox(width: 8),
+                                        CategoryChip(
+                                          text: 'Meat',
+                                          icon: Icons.fastfood,
+                                          isSelected: _selectedCategory == 'Meat',
+                                          onPressed: () {
+                                            setState(() {
+                                              _selectedCategory = 'Meat';
+                                            });
+                                            GoRouter.of(context).go('/categories');
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                
                 // Promotional Banner
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -135,12 +203,7 @@ class _LandingPageState extends State<LandingPage> {
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
                       ),
                       TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const CategoriesPage()),
-                          );
-                        },
+                        onPressed: () => GoRouter.of(context).go('/categories'),
                         child: Text(
                           'See All',
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(color: const Color(0xFF4CAF50)),
@@ -157,9 +220,13 @@ class _LandingPageState extends State<LandingPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     itemCount: weeklyDeals.length,
                     itemBuilder: (context, index) {
+                      final product = weeklyDeals[index];
                       return Padding(
                         padding: const EdgeInsets.only(right: 16.0),
-                        child: ProductCard(product: weeklyDeals[index]),
+                        child: ProductCard(
+                          product: product,
+                          onTap: () => GoRouter.of(context).go('/item/${product.id}'),
+                        ),
                       );
                     },
                   ),
@@ -176,9 +243,7 @@ class _LandingPageState extends State<LandingPage> {
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
                       ),
                       TextButton(
-                        onPressed: () {
-                          // Handle see all tap
-                        },
+                        onPressed: () => GoRouter.of(context).go('/categories'),
                         child: Text(
                           'See All',
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(color: const Color(0xFF4CAF50)),
@@ -195,9 +260,13 @@ class _LandingPageState extends State<LandingPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     itemCount: freshProduce.length,
                     itemBuilder: (context, index) {
+                      final product = freshProduce[index];
                       return Padding(
                         padding: const EdgeInsets.only(right: 16.0),
-                        child: ProductCard(product: freshProduce[index]),
+                        child: ProductCard(
+                          product: product,
+                          onTap: () => GoRouter.of(context).go('/item/${product.id}'),
+                        ),
                       );
                     },
                   ),

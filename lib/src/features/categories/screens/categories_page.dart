@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
 import 'package:hci_app/src/core/widgets/category_chip.dart';
-import 'package:hci_app/src/features/item_listing/screens/item_listing_page.dart';
-import 'package:hci_app/src/features/search/screens/search_page.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 
 class CategoriesPage extends StatelessWidget {
@@ -25,23 +24,12 @@ class CategoriesPage extends StatelessWidget {
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text('Fresh Produce'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Handle back button press
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          },
-        ),
+        backgroundColor: const Color(0xFF1E1E1E),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SearchPage()),
-              );
+              GoRouter.of(context).go('/search');
             },
           ),
         ],
@@ -81,14 +69,11 @@ class CategoriesPage extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  return GestureDetector(
+                  return ProductCard(
+                    product: products[index],
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ItemListingPage(product: products[index])),
-                      );
+                      GoRouter.of(context).go('/item/${products[index].id}');
                     },
-                    child: ProductCard(product: products[index]),
                   );
                 },
                 childCount: products.length,

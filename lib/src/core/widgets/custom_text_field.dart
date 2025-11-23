@@ -6,6 +6,7 @@ class CustomTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final BorderRadius? borderRadius;
   final Color? fillColor;
   final double? fontSize;
@@ -18,6 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     this.prefixIcon,
+    this.suffixIcon,
     this.borderRadius,
     this.fillColor,
     this.fontSize,
@@ -58,6 +60,7 @@ class CustomTextField extends StatelessWidget {
                 ),
                 border: InputBorder.none, // Remove default underline
                 contentPadding: const EdgeInsets.symmetric(vertical: 18.5),
+                suffixIcon: suffixIcon,
               ),
             ),
           ),

@@ -47,9 +47,9 @@ flutter test
 *   **Widgets:** Reusable widgets are located in `lib/src/core/widgets`.
 *   **Theme:** The app's theme is defined in `lib/src/core/theme/app_theme.dart`.
 *   **Models:** Data models are located in `lib/src/features/models`.
-*   **State Management:** The app uses the `provider` package for state management.
+*   **State Management:** The app uses the `provider` package for state management, providing `CartModel` for the shopping cart and `OrderHistoryModel` for managing past orders.
 *   **Linting:** The project uses the `flutter_lints` package to enforce good coding practices. The linting rules are defined in `analysis_options.yaml`.
-*   **Navigation:** The app uses a `ShellPage` with an `IndexedStack` to provide a seamless navigation experience with a persistent bottom navigation bar.
+*   **Navigation:** The app uses the `go_router` package for navigation. A `ShellRoute` is used to provide a persistent bottom navigation bar for the main screens, while allowing for nested navigation to sub-screens like product details.
 *   **Action Plan:** The project's action plan is located in `lib/action_plan.md`.
 
 This `GEMINI.md` file provides a comprehensive overview of the project and its conventions, and can be used as instructional context for future interactions.

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hci_app/src/core/widgets/custom_button.dart';
-import 'package:hci_app/src/features/checkout/screens/checkout_page.dart';
 import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/cart_item_model.dart';
@@ -16,14 +16,6 @@ class CartPage extends StatelessWidget {
           backgroundColor: Colors.black,
           appBar: AppBar(
             title: const Text('My Cart'),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
-              },
-            ),
           ),
           body: Column(
             children: [
@@ -73,10 +65,7 @@ class CartPage extends StatelessWidget {
                     CustomButton(
                       text: 'Proceed to Checkout',
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const CheckoutPage()),
-                        );
+                        GoRouter.of(context).go('/checkout');
                       },
                       width: double.infinity,
                       height: 50,
