@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'KraveMart',
       theme: AppTheme.lightTheme,
       routerConfig: router,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
