@@ -4,6 +4,7 @@ import 'package:hci_app/src/core/widgets/product_card.dart';
 import 'package:hci_app/src/core/widgets/category_chip.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 import 'package:hci_app/src/features/models/dummy_products.dart'; // Import dummy products
+import 'package:hci_app/generated/app_localizations.dart';
 
 class CategoriesPage extends StatelessWidget {
   final String category; // Add category parameter
@@ -13,15 +14,16 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
     List<Product> filteredProducts;
 
     if (category == 'All') {
-      filteredProducts = dummyProducts;
+      filteredProducts = getDummyProducts(localizations);
     } else if (category == 'Weekly Deals') {
-      filteredProducts = dummyProducts.where((product) => product.oldPrice != null).toList();
+      filteredProducts = getDummyProducts(localizations).where((product) => product.oldPrice != null).toList();
     } else {
       // Filter by the new category property
-      filteredProducts = dummyProducts
+      filteredProducts = getDummyProducts(localizations)
           .where((product) => product.category.toLowerCase() == category.toLowerCase())
           .toList();
     }
@@ -55,7 +57,7 @@ class CategoriesPage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
                 children: [
-                  'All', 'Fruits', 'Vegetables', 'Dairy', 'Bakery', 'Meat'
+                  localizations.all, localizations.fruits, localizations.vegetables, localizations.dairy, localizations.bakery, localizations.meat
                 ].map((cat) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8.0),

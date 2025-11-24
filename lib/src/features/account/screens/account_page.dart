@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hci_app/src/features/delivery_tracking/screens/delivery_tracking_page.dart';
+import 'package:hci_app/generated/app_localizations.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -8,10 +9,11 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Account'),
+        title: Text(localizations.accountTitle),
         automaticallyImplyLeading: false, // No back button
         actions: [
           IconButton(
@@ -34,7 +36,7 @@ class AccountPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Syed Rafay Ahmed',
+                localizations.userName,
                 style: theme.textTheme.titleLarge,
               ),
               IconButton(
@@ -51,7 +53,7 @@ class AccountPage extends StatelessWidget {
               const SizedBox(width: 8),
               TextButton(
                 onPressed: () => GoRouter.of(context).go('/account/order-history'),
-                child: Text('Order History', style: theme.textTheme.bodyMedium),
+                child: Text(localizations.orderHistory, style: theme.textTheme.bodyMedium),
               ),
             ],
           ),
@@ -60,20 +62,20 @@ class AccountPage extends StatelessWidget {
           // Information Sections
           _buildInfoSection(
             context,
-            title: 'Delivery Address',
-            content: 'Jane Doe\n2464 Royal Ln. Mesa, New Jersey 45463',
+            title: localizations.deliveryAddressTitle,
+            content: localizations.deliveryAddressContent,
             icon: Icons.location_on,
           ),
           _buildInfoSection(
             context,
-            title: 'Email',
-            content: 'syedrafayahmeds@gmail.com',
+            title: localizations.emailTitle,
+            content: localizations.emailContent,
             icon: Icons.email,
           ),
           _buildInfoSection(
             context,
-            title: 'Phone Number',
-            content: '+92 3482234578',
+            title: localizations.phoneNumberTitle,
+            content: localizations.phoneNumberContent,
             icon: Icons.phone,
           ),
           const SizedBox(height: 20),
@@ -87,7 +89,7 @@ class AccountPage extends StatelessWidget {
                 );
               },
               icon: const Icon(Icons.track_changes),
-              label: const Text('Track Order'),
+              label: Text(localizations.trackOrder),
             ),
           ),
         ],
@@ -97,6 +99,7 @@ class AccountPage extends StatelessWidget {
 
   Widget _buildInfoSection(BuildContext context, {required String title, required String content, required IconData icon}) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ListTile(
@@ -105,7 +108,7 @@ class AccountPage extends StatelessWidget {
         subtitle: Text(content, style: theme.textTheme.bodySmall),
         trailing: TextButton(
           onPressed: () {},
-          child: Text('Change', style: TextStyle(color: theme.colorScheme.tertiary)),
+          child: Text(localizations.change, style: TextStyle(color: theme.colorScheme.tertiary)),
         ),
       ),
     );

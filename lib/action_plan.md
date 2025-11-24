@@ -164,3 +164,9 @@ This refined plan provides a clear roadmap for developing the KraveMart app effi
 
 ### Accessibility Menu
 - A new icon will be added to the profile section, which will allow the user to go back to the accessibility menu to change the accessibility options.
+
+### Urdu Language Support
+- Add Urdu language support to the application.
+- Add a new toggle option in the accessibility menu for "English/Urdu".
+- When toggled to Urdu, all user-facing text in the application will be changed to Urdu script.
+- This will involve creating localization files for both English and Urdu and updating the UI to use localized strings.

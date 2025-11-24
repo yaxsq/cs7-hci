@@ -5,6 +5,7 @@ import 'package:hci_app/src/core/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/cart_item_model.dart';
+import 'package:hci_app/generated/app_localizations.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -12,12 +13,13 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Consumer<CartModel>(
       builder: (context, cart, child) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('My Cart'),
+            title: Text(localizations.myCart),
           ),
           body: Column(
             children: [
@@ -43,7 +45,7 @@ class CartPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Subtotal', style: theme.textTheme.bodyMedium),
+                        Text(localizations.subtotal, style: theme.textTheme.bodyMedium),
                         Text("\$${cart.totalPrice.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
                       ],
                     ),
@@ -51,7 +53,7 @@ class CartPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Delivery Fee', style: theme.textTheme.bodyMedium),
+                        Text(localizations.deliveryFee, style: theme.textTheme.bodyMedium),
                         Text("\$${AppConstants.deliveryFee.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
                       ],
                     ),
@@ -59,13 +61,13 @@ class CartPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Total', style: theme.textTheme.titleLarge),
+                        Text(localizations.total, style: theme.textTheme.titleLarge),
                         Text("\$${(cart.totalPrice + AppConstants.deliveryFee).toStringAsFixed(2)}", style: theme.textTheme.titleLarge),
                       ],
                     ),
                     const SizedBox(height: 16),
                     CustomButton(
-                      text: 'Proceed to Checkout',
+                      text: localizations.proceedToCheckout,
                       onPressed: cart.items.isEmpty ? null : () {
                         GoRouter.of(context).go('/checkout');
                       },
@@ -74,7 +76,7 @@ class CartPage extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {},
-                      child: Text('Continue Shopping', style: TextStyle(color: theme.colorScheme.tertiary)),
+                      child: Text(localizations.continueShopping, style: TextStyle(color: theme.colorScheme.tertiary)),
                     )
                   ],
                 ),

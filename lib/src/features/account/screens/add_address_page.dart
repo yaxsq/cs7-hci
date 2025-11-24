@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hci_app/generated/app_localizations.dart';
 
 class AddAddressPage extends StatelessWidget {
   const AddAddressPage({super.key});
@@ -6,10 +7,11 @@ class AddAddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Set delivery location'),
+        title: Text(localizations.setDeliveryLocation),
       ),
       body: Stack(
         children: [
@@ -30,18 +32,18 @@ class AddAddressPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Your Location',
+                    localizations.yourLocation,
                     style: theme.textTheme.titleMedium,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '123 Market Street, Downtown',
+                    localizations.defaultLocation,
                     style: theme.textTheme.titleLarge,
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text('Confirm Location'),
+                    child: Text(localizations.confirmLocation),
                   ),
                 ],
               ),

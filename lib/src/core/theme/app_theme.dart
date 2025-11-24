@@ -128,4 +128,22 @@ class AppTheme {
       color: Colors.white,
     ),
   );
+
+  static ThemeData highContrastLargeFontTheme = highContrastTheme.copyWith(
+    textTheme: TextTheme(
+      displayLarge: const TextStyle(fontSize: 104, fontWeight: FontWeight.w300, letterSpacing: -1.5, color: Colors.black),
+      displayMedium: const TextStyle(fontSize: 68, fontWeight: FontWeight.w300, letterSpacing: -0.5, color: Colors.black),
+      displaySmall: const TextStyle(fontSize: 56, fontWeight: FontWeight.w400, color: Colors.black),
+      headlineMedium: const TextStyle(fontSize: 42, fontWeight: FontWeight.w400, letterSpacing: 0.25, color: Colors.black),
+      headlineSmall: const TextStyle(fontSize: 32, fontWeight: FontWeight.w400, color: Colors.black),
+      titleLarge: const TextStyle(fontSize: 28, fontWeight: FontWeight.w500, letterSpacing: 0.15, color: Colors.black),
+      titleMedium: const TextStyle(fontSize: 24, fontWeight: FontWeight.w400, letterSpacing: 0.15, color: Colors.black),
+      titleSmall: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500, letterSpacing: 0.1, color: Colors.black),
+      bodyLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.w400, letterSpacing: 0.5, color: Colors.black),
+      bodyMedium: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, letterSpacing: 0.25, color: Colors.black),
+      labelLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, letterSpacing: 1.25, color: Colors.black),
+      bodySmall: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, letterSpacing: 0.4, color: Colors.black),
+      labelSmall: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, letterSpacing: 1.5, color: Colors.black),
+    ),
+  );
 }

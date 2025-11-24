@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/cart_item_model.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
+import 'package:hci_app/generated/app_localizations.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -19,6 +20,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Semantics(
       label: '${product.name}, \$${product.price.toStringAsFixed(2)}',
@@ -97,7 +99,7 @@ class ProductCard extends StatelessWidget {
 
                               if (itemInCart == null) {
                                 return CustomButton(
-                                  text: 'Add',
+                                  text: localizations.add,
                                   onPressed: () {
                                     cart.add(product);
                                   },

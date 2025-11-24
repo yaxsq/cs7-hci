@@ -4,6 +4,7 @@ import 'package:hci_app/src/core/widgets/custom_text_field.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 import 'package:hci_app/src/features/models/dummy_products.dart';
+import 'package:hci_app/generated/app_localizations.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -15,18 +16,17 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   List<Product> _searchResults = []; // Placeholder for search results
-  final List<String> _recentSearches = ['Organic Milk', 'Fresh Berries', 'Cheddar Cheese']; // Placeholder
-
+  
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
   }
 
-  void _performSearch(String query) {
+  void _performSearch(String query, AppLocalizations localizations) {
     // In a real app, you would filter a product list or call an API here
     setState(() {
-      _searchResults = dummyProducts.where((product) =>
+      _searchResults = getDummyProducts(localizations).where((product) =>
           product.name.toLowerCase().contains(query.toLowerCase())).toList();
     });
   }
@@ -34,6 +34,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
+    final List<String> _recentSearches = [localizations.organicMilk, localizations.freshBerries, localizations.cheddarCheese]; // Placeholder
 
     return Scaffold(
       body: CustomScrollView(
@@ -44,7 +46,7 @@ class _SearchPageState extends State<SearchPage> {
             snap: true,
             title: CustomTextField(
               controller: _searchController,
-              hintText: 'Search for groceries',
+              hintText: localizations.searchHint,
               prefixIcon: Icon(Icons.search, color: theme.iconTheme.color),
               suffixIcon: IconButton(
                 icon: Icon(Icons.clear, color: theme.iconTheme.color),
@@ -55,7 +57,7 @@ class _SearchPageState extends State<SearchPage> {
                   });
                 },
               ),
-              onSubmitted: (value) => _performSearch(value),
+              onSubmitted: (value) => _performSearch(value, localizations),
             ),
             leading: IconButton(
               icon: Icon(Icons.arrow_back, color: theme.iconTheme.color),
@@ -74,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Recent Searches',
+                          localizations.recentSearches,
                           style: theme.textTheme.titleLarge,
                         ),
                         const SizedBox(height: 16),
@@ -85,14 +87,14 @@ class _SearchPageState extends State<SearchPage> {
                             label: Text(search, style: theme.textTheme.bodyMedium),
                             onPressed: () {
                               _searchController.text = search;
-                              _performSearch(search);
+                              _performSearch(search, localizations);
                             },
                             backgroundColor: theme.cardColor,
                           )).toList(),
                         ),
                         const SizedBox(height: 24),
                         Text(
-                          'Popular Items',
+                          localizations.popularItems,
                           style: theme.textTheme.titleLarge,
                         ),
                         const SizedBox(height: 16),
@@ -101,9 +103,9 @@ class _SearchPageState extends State<SearchPage> {
                           height: 268, // Height of the product cards
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: dummyProducts.length,
+                            itemCount: getDummyProducts(localizations).length,
                             itemBuilder: (context, index) {
-                              final product = dummyProducts[index];
+                              final product = getDummyProducts(localizations)[index];
                               return Padding(
                                 padding: const EdgeInsets.only(right: 16.0),
                                 child: ProductCard(
@@ -141,5 +143,3 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 }
-
-// Dummy products for demonstration. In a real app, this would come from a service.

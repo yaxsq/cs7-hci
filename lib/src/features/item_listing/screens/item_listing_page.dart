@@ -5,8 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 import 'package:hci_app/src/features/models/dummy_products.dart';
-import 'package:hci_app/src/features/models/dummy_products.dart';
 import 'package:hci_app/src/core/widgets/custom_button.dart';
+import 'package:hci_app/generated/app_localizations.dart';
 
 class ItemListingPage extends StatefulWidget {
   final String itemId;
@@ -23,9 +23,10 @@ class _ItemListingPageState extends State<ItemListingPage> {
   @override
   Widget build(BuildContext context) {
     // For now, we'll find a dummy product. In a real app, you'd fetch this from a service.
-    final product = dummyProducts.firstWhere((p) => p.id == widget.itemId, orElse: () => dummyProducts.first);
     final cart = Provider.of<CartModel>(context, listen: false);
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
+    final product = getDummyProducts(localizations).firstWhere((p) => p.id == widget.itemId, orElse: () => getDummyProducts(localizations).first);
 
     return Scaffold(
       body: CustomScrollView(
@@ -89,7 +90,7 @@ class _ItemListingPageState extends State<ItemListingPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Quantity',
+                        localizations.quantity,
                         style: theme.textTheme.titleMedium,
                       ),
                       Container(
@@ -128,9 +129,9 @@ class _ItemListingPageState extends State<ItemListingPage> {
                   ),
                   const SizedBox(height: 24),
                   Divider(color: theme.dividerColor),
-                  _buildExpandableSection(context, 'Product Details', product.description),
+                  _buildExpandableSection(context, localizations.productDetails, product.description),
                   Divider(color: theme.dividerColor),
-                  _buildExpandableSection(context, 'Nutritional Facts', 'Calories: 150, Fat: 10g, Protein: 5g, Carbs: 10g'), // Placeholder
+                  _buildExpandableSection(context, localizations.nutritionalFacts, localizations.nutritionalFactsContent), // Placeholder
                   Divider(color: theme.dividerColor),
                 ],
               ),
@@ -141,14 +142,14 @@ class _ItemListingPageState extends State<ItemListingPage> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: CustomButton(
-          text: 'Add to Cart',
+          text: localizations.addToCart,
           onPressed: () {
             cart.add(product, quantity: _quantity);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: theme.snackBarTheme.backgroundColor,
                 content: Text(
-                  '${product.name} (x$_quantity) added to cart!',
+                  localizations.itemAddedToCart(product.name, _quantity),
                   style: theme.snackBarTheme.contentTextStyle,
                 ),
                 duration: const Duration(seconds: 2),

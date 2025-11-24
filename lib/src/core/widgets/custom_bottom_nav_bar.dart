@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hci_app/generated/app_localizations.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   final int selectedIndex;
@@ -18,6 +19,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Container(
       height: 80,
@@ -33,10 +35,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildNavItem(Icons.home, "Home", 0),
-          _buildNavItem(Icons.search, "Browse", 1),
-          _buildNavItem(Icons.shopping_cart, "Cart", 2),
-          _buildNavItem(Icons.person, "Account", 3),
+          _buildNavItem(Icons.home, localizations.homeNav, 0),
+          _buildNavItem(Icons.search, localizations.browseNav, 1),
+          _buildNavItem(Icons.shopping_cart, localizations.cartNav, 2),
+          _buildNavItem(Icons.person, localizations.accountNav, 3),
         ],
       ),
     );

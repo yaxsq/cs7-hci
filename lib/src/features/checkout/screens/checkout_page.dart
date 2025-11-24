@@ -7,6 +7,7 @@ import 'package:hci_app/src/features/models/order_history_model.dart';
 import 'package:hci_app/src/features/models/order_model.dart';
 import 'package:hci_app/src/features/models/custom_id.dart';
 import 'package:hci_app/src/core/widgets/custom_button.dart';
+import 'package:hci_app/generated/app_localizations.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
@@ -23,10 +24,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Checkout'),
+        title: Text(localizations.checkout),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => GoRouter.of(context).pop(),
@@ -36,27 +38,27 @@ class _CheckoutPageState extends State<CheckoutPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildStepIndicator(theme),
+            _buildStepIndicator(theme, localizations),
             const SizedBox(height: 24),
             // Conditionally display step content
-            if (_currentStep == 0) _buildAddressStep(theme),
-            if (_currentStep == 1) _buildPaymentStep(theme),
-            if (_currentStep == 2) _buildReviewStep(theme),
+            if (_currentStep == 0) _buildAddressStep(theme, localizations),
+            if (_currentStep == 1) _buildPaymentStep(theme, localizations),
+            if (_currentStep == 2) _buildReviewStep(theme, localizations),
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomButtons(theme),
+      bottomNavigationBar: _buildBottomButtons(theme, localizations),
     );
   }
 
-  Widget _buildStepIndicator(ThemeData theme) {
+  Widget _buildStepIndicator(ThemeData theme, AppLocalizations localizations) {
     return Row(
       children: [
-        _buildIndicatorCircle(theme, 'Address', 0),
+        _buildIndicatorCircle(theme, localizations.address, 0),
         Expanded(child: Divider(color: theme.dividerColor)),
-        _buildIndicatorCircle(theme, 'Payment', 1),
+        _buildIndicatorCircle(theme, localizations.payment, 1),
         Expanded(child: Divider(color: theme.dividerColor)),
-        _buildIndicatorCircle(theme, 'Review', 2),
+        _buildIndicatorCircle(theme, localizations.review, 2),
       ],
     );
   }
@@ -84,53 +86,53 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Widget _buildAddressStep(ThemeData theme) {
+  Widget _buildAddressStep(ThemeData theme, AppLocalizations localizations) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Select Delivery Address', style: theme.textTheme.headlineSmall),
+        Text(localizations.selectDeliveryAddress, style: theme.textTheme.headlineSmall),
         const SizedBox(height: 16),
         _buildSelectionCard(
           theme,
-          title: 'Home',
-          subtitle: '123 Main St, Anytown, USA',
+          title: localizations.home,
+          subtitle: localizations.homeAddress,
           isSelected: _selectedAddress == '123 Main St, Anytown, USA',
           onTap: () => setState(() => _selectedAddress = '123 Main St, Anytown, USA'),
         ),
         _buildSelectionCard(
           theme,
-          title: 'Work',
-          subtitle: '456 Oak Ave, Sometown, USA',
+          title: localizations.work,
+          subtitle: localizations.workAddress,
           isSelected: _selectedAddress == '456 Oak Ave, Sometown, USA',
           onTap: () => setState(() => _selectedAddress = '456 Oak Ave, Sometown, USA'),
         ),
         TextButton.icon(
           icon: Icon(Icons.add, color: theme.colorScheme.tertiary),
-          label: Text('Add New Address', style: TextStyle(color: theme.colorScheme.tertiary)),
+          label: Text(localizations.addNewAddress, style: TextStyle(color: theme.colorScheme.tertiary)),
           onPressed: () {},
         ),
       ],
     );
   }
 
-  Widget _buildPaymentStep(ThemeData theme) {
+  Widget _buildPaymentStep(ThemeData theme, AppLocalizations localizations) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Select Payment Method', style: theme.textTheme.headlineSmall),
+        Text(localizations.selectPaymentMethod, style: theme.textTheme.headlineSmall),
         const SizedBox(height: 16),
         _buildSelectionCard(
           theme,
-          title: 'Credit Card',
-          subtitle: '**** **** **** 1234',
+          title: localizations.creditCard,
+          subtitle: localizations.creditCardNumber,
           icon: Icons.credit_card,
           isSelected: _selectedPayment == 'Credit Card',
           onTap: () => setState(() => _selectedPayment = 'Credit Card'),
         ),
         _buildSelectionCard(
           theme,
-          title: 'PayPal',
-          subtitle: 'user@example.com',
+          title: localizations.paypal,
+          subtitle: localizations.paypalEmail,
           icon: Icons.paypal,
           isSelected: _selectedPayment == 'PayPal',
           onTap: () => setState(() => _selectedPayment = 'PayPal'),
@@ -139,12 +141,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Widget _buildReviewStep(ThemeData theme) {
+  Widget _buildReviewStep(ThemeData theme, AppLocalizations localizations) {
     final cart = Provider.of<CartModel>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Review Your Order', style: theme.textTheme.headlineSmall),
+        Text(localizations.reviewYourOrder, style: theme.textTheme.headlineSmall),
         const SizedBox(height: 16),
         // Order Summary Card
         Card(
@@ -174,7 +176,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              Text('Qty: ${item.quantity}', style: theme.textTheme.bodySmall),
+                              Text(localizations.quantityShort(item.quantity), style: theme.textTheme.bodySmall),
                             ],
                           ),
                         ),
@@ -185,10 +187,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   },
                 ),
                 Divider(color: theme.dividerColor),
-                _buildSummaryRow(theme, 'Subtotal', cart.totalPrice),
-                _buildSummaryRow(theme, 'Delivery Fee', AppConstants.deliveryFee),
+                _buildSummaryRow(theme, localizations.subtotal, cart.totalPrice),
+                _buildSummaryRow(theme, localizations.deliveryFee, AppConstants.deliveryFee),
                 Divider(color: theme.dividerColor),
-                _buildSummaryRow(theme, 'Total', cart.totalPrice + AppConstants.deliveryFee, isTotal: true),
+                _buildSummaryRow(theme, localizations.total, cart.totalPrice + AppConstants.deliveryFee, isTotal: true),
               ],
             ),
           ),
@@ -233,7 +235,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Widget _buildBottomButtons(ThemeData theme) {
+  Widget _buildBottomButtons(ThemeData theme, AppLocalizations localizations) {
     return Container(
       color: theme.bottomAppBarTheme.color,
       padding: const EdgeInsets.all(16.0),
@@ -247,14 +249,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     _currentStep -= 1;
                   });
                 },
-                child: Text('BACK', style: theme.textTheme.labelLarge),
+                child: Text(localizations.back, style: theme.textTheme.labelLarge),
               ),
             ),
           if (_currentStep > 0) const SizedBox(width: 16),
           Expanded(
             flex: 2,
             child: CustomButton(
-              text: _currentStep == 2 ? 'PLACE ORDER' : 'CONTINUE',
+              text: _currentStep == 2 ? localizations.placeOrder : localizations.continueText,
               onPressed: () {
                 if (_currentStep < 2) {
                   setState(() {
@@ -278,7 +280,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   cart.clearCart(); // Clear the cart after placing the order
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Order placed successfully!', style: theme.snackBarTheme.contentTextStyle)),
+                    SnackBar(content: Text(localizations.orderPlacedSuccessfully, style: theme.snackBarTheme.contentTextStyle)),
                   );
                   context.go('/delivery-tracking');
                 }
