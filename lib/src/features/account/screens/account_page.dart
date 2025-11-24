@@ -82,6 +82,10 @@ class AccountPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.tertiary,
+                foregroundColor: theme.colorScheme.onPrimary,
+              ),
               onPressed: () {
                 Navigator.push(
                   context,

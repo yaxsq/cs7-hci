@@ -55,6 +55,10 @@ class AccessibilityPage extends StatelessWidget {
             ),
             const Spacer(),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.tertiary,
+                foregroundColor: theme.colorScheme.onPrimary,
+              ),
               onPressed: () {
                 GoRouter.of(context).go('/');
               },
