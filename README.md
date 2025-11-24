@@ -92,8 +92,6 @@ Based on usability testing:
 
 ### Prerequisites
 - Flutter SDK
-- Node.js
-- PostgreSQL
 
 ### Installation
 ```bash
