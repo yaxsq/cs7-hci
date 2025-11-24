@@ -46,11 +46,6 @@ Dedicated accessibility configuration available at app launch:
 - **Platform**: Cross-platform (iOS & Android)
 - **State Management**: Provider/Riverpod
 
-### Backend
-- **Runtime**: Node.js
-- **Database**: PostgreSQL
-- **API**: RESTful architecture
-
 ## 📊 Design Process
 
 ### Phase 1: Research & Analysis
