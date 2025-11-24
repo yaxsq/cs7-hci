@@ -8,6 +8,8 @@ class OrderHistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Consumer<OrderHistoryModel>(
       builder: (context, orderHistory, child) {
         return Scaffold(
@@ -21,9 +23,9 @@ class OrderHistoryPage extends StatelessWidget {
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: ListTile(
-                  title: Text('Order #${order.id}'),
-                  subtitle: Text(DateFormat.yMMMd().format(order.orderDate)),
-                  trailing: Text('\$${order.totalPrice.toStringAsFixed(2)}'),
+                  title: Text('Order #${order.id}', style: theme.textTheme.titleMedium),
+                  subtitle: Text(DateFormat.yMMMd().format(order.orderDate), style: theme.textTheme.bodySmall),
+                  trailing: Text('\$${order.totalPrice.toStringAsFixed(2)}', style: theme.textTheme.titleMedium),
                 ),
               );
             },

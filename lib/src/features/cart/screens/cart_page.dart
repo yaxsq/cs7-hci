@@ -1,3 +1,4 @@
+import 'package:hci_app/src/core/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hci_app/src/core/widgets/custom_button.dart';
@@ -10,10 +11,11 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Consumer<CartModel>(
       builder: (context, cart, child) {
         return Scaffold(
-          backgroundColor: Colors.black,
           appBar: AppBar(
             title: const Text('My Cart'),
           ),
@@ -30,10 +32,10 @@ class CartPage extends StatelessWidget {
               // Order Summary
               Container(
                 padding: const EdgeInsets.all(16.0),
-                decoration: const BoxDecoration(
-                  color: Color(0xFF1E1E1E),
+                decoration: BoxDecoration(
+                  color: theme.cardColor,
                   border: Border(
-                    top: BorderSide(color: Color(0xFF2C2C2C), width: 1.0),
+                    top: BorderSide(color: theme.dividerColor, width: 1.0),
                   ),
                 ),
                 child: Column(
@@ -41,24 +43,24 @@ class CartPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Subtotal', style: TextStyle(color: Colors.white70)),
-                        Text('\$${cart.totalPrice.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white)),
+                        Text('Subtotal', style: theme.textTheme.bodyMedium),
+                        Text("\$${cart.totalPrice.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
                       ],
                     ),
                     const SizedBox(height: 8),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Delivery Fee', style: TextStyle(color: Colors.white70)),
-                        Text('\$2.00', style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                    const Divider(color: Colors.grey),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Total', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
-                        Text('\$${(cart.totalPrice + 2.0).toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
+                        Text('Delivery Fee', style: theme.textTheme.bodyMedium),
+                        Text("\$${AppConstants.deliveryFee.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
+                      ],
+                    ),
+                    Divider(color: theme.dividerColor),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Total', style: theme.textTheme.titleLarge),
+                        Text("\$${(cart.totalPrice + AppConstants.deliveryFee).toStringAsFixed(2)}", style: theme.textTheme.titleLarge),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -72,7 +74,7 @@ class CartPage extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {},
-                      child: const Text('Continue Shopping', style: TextStyle(color: Color(0xFF4CAF50))),
+                      child: Text('Continue Shopping', style: TextStyle(color: theme.colorScheme.tertiary)),
                     )
                   ],
                 ),
@@ -84,44 +86,85 @@ class CartPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCartItem(BuildContext context, CartItem item) {
-    final cart = Provider.of<CartModel>(context, listen: false);
-    return Card(
-      color: const Color(0xFF1E1E1E),
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: [
-            Image.network(
-              item.product.imageUrl,
-              width: 85,
-              height: 85,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(item.product.name, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 4),
-                  Text(item.product.description, style: const TextStyle(color: Colors.white70)),
-                  const SizedBox(height: 8),
-                  Text('\$${item.product.price.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFFAADD78), fontSize: 16)),
-                ],
+    Widget _buildCartItem(BuildContext context, CartItem item) {
+
+      final cart = Provider.of<CartModel>(context, listen: false);
+
+      final theme = Theme.of(context);
+
+  
+
+      return Card(
+
+        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+
+        child: Padding(
+
+          padding: const EdgeInsets.all(12.0),
+
+          child: Row(
+
+            children: [
+
+              Image.network(
+
+                item.product.imageUrl,
+
+                width: 85,
+
+                height: 85,
+
+                fit: BoxFit.cover,
+
               ),
-            ),
-            Row(
-              children: [
-                IconButton(onPressed: () => cart.decrement(item), icon: const Icon(Icons.remove, color: Colors.white, size: 20)),
-                Text('${item.quantity}', style: const TextStyle(color: Colors.white, fontSize: 16)),
-                IconButton(onPressed: () => cart.increment(item), icon: const Icon(Icons.add, color: Colors.white, size: 20)),
-              ],
-            )
-          ],
+
+              const SizedBox(width: 16),
+
+              Expanded(
+
+                child: Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+
+                    Text(item.product.name, style: theme.textTheme.titleMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
+
+                    const SizedBox(height: 4),
+
+                    Text(item.product.description, style: theme.textTheme.bodySmall, maxLines: 2, overflow: TextOverflow.ellipsis),
+
+                    const SizedBox(height: 8),
+
+                    Text("\$${item.product.price.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.tertiary)),
+
+                  ],
+
+                ),
+
+              ),
+
+              Row(
+
+                children: [
+
+                  IconButton(onPressed: () => cart.decrement(item), icon: Icon(Icons.remove, size: 20, color: theme.iconTheme.color)),
+
+                  Text('${item.quantity}', style: theme.textTheme.bodyMedium),
+
+                  IconButton(onPressed: () => cart.increment(item), icon: Icon(Icons.add, size: 20, color: theme.iconTheme.color)),
+
+                ],
+
+              )
+
+            ],
+
+          ),
+
         ),
-      ),
-    );
-  }
+
+      );
+
+    }
 }

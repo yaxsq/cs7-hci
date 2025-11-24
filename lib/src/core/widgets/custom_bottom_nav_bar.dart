@@ -17,13 +17,15 @@ class CustomBottomNavBar extends StatefulWidget {
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       height: 80,
-      decoration: const BoxDecoration(
-        color: Color(0xFF1E1E1E), // Dark grey background
+      decoration: BoxDecoration(
+        color: theme.bottomAppBarTheme.color,
         border: Border(
           top: BorderSide(
-            color: Color(0xFF2C2C2C), // Top border color
+            color: theme.dividerColor,
             width: 1.0,
           ),
         ),
@@ -42,6 +44,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   Widget _buildNavItem(IconData icon, String label, int index) {
     final bool isSelected = index == widget.selectedIndex;
+    final theme = Theme.of(context);
+
     return Expanded(
       child: InkWell(
         onTap: () => widget.onItemTapped(index),
@@ -50,14 +54,13 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           children: [
             Icon(
               icon,
-              color: isSelected ? const Color(0xFF4CAF50) : const Color(0xFFBDBDBD),
+              color: isSelected ? theme.colorScheme.tertiary : theme.iconTheme.color,
               size: 24,
             ),
             Text(
               label,
-              style: TextStyle(
-                color: isSelected ? const Color(0xFF4CAF50) : const Color(0xFFBDBDBD),
-                fontSize: 12,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: isSelected ? theme.colorScheme.tertiary : theme.textTheme.labelSmall?.color,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),

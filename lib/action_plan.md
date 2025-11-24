@@ -125,3 +125,42 @@ For managing the application's state (e.g., the contents of the shopping cart, u
 -   **Testing:** We will write unit and widget tests for our core components and business logic to ensure the app is robust and reliable.
 
 This refined plan provides a clear roadmap for developing the KraveMart app efficiently, leveraging `get_design_context` for precise component implementation.
+
+## 5. New Actions
+
+### Add Address Screen
+- Implement the "Add Address" screen from the Figma design.
+- Use the `mapselect.png` image as a placeholder for the map.
+- Create a new route for this screen at `/account/add-address`.
+
+### Map Integration
+- Add a placeholder map image to the "Delivery Tracking" screen.
+- Use the `maptrack.png` image for the delivery tracking screen.
+
+## 6. New Accessibility and UI Features
+
+### Add Address Screen
+- Implement the "Add Address" screen, which is triggered by the "Add New Address" button.
+
+### Splash Screen
+- Implement a splash screen that appears for two seconds at the very start of the application.
+- Move the `splash.png` file from the root of the repository to the `assets/images` folder.
+- Use the `splash.png` image for the splash screen.
+
+### Accessibility Screen
+- Implement an accessibility screen that appears right after the splash screen.
+- Use the Figma design for the accessibility screen: `https://www.figma.com/design/XMmZPKXXEtHH39Prt6tL5u/KraveMart?node-id=225-220&m=dev`
+- The screen will have three toggle buttons for "Large Font," "High Contrast," and "Voice Narrator."
+- These toggles can be turned on or off independently.
+- The "Continue" button at the bottom will proceed to the home screen of the application, and there will be no way to go back to the accessibility screen from there.
+- A boolean for `isFirstTime` will be created and will always be `true` during development, so the accessibility screen always appears.
+
+### Accessibility Themes
+- Create new themes according to the accessibility settings.
+- **Large Font Theme:** When "Large Font" is turned on, the font size of the application will be larger.
+- **High Contrast Theme:** When "High Contrast" is turned on, the background of the application will be white, and the text color will be black.
+- **Voice Narrator:** A placeholder implementation will be added for the voice narrator mode.
+- **ARIA Labels:** Add ARIA labels to every element that has text in it. The narrator will speak the text in the ARIA label for every element so that the user knows what they pressed.
+
+### Accessibility Menu
+- A new icon will be added to the profile section, which will allow the user to go back to the accessibility menu to change the accessibility options.

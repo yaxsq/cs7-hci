@@ -28,43 +28,43 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: fillColor ?? const Color(0xFF2c2c2c),
-        borderRadius: borderRadius ?? BorderRadius.circular(12.0),
-      ),
-      child: Row(
-        children: [
-          if (prefixIcon != null)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: prefixIcon,
-            ),
-          Expanded(
-            child: TextField(
-              controller: controller,
-              onChanged: onChanged,
-              onSubmitted: (value) {
-                FocusScope.of(context).unfocus(); // Dismiss keyboard on submit
-                onSubmitted?.call(value);
-              },
-              style: TextStyle(
-                color: Colors.white, // Assuming white text input
-                fontSize: fontSize ?? 16,
+    final theme = Theme.of(context);
+
+    return Semantics(
+      textField: true,
+      label: hintText,
+      child: Container(
+        decoration: BoxDecoration(
+          color: fillColor ?? theme.inputDecorationTheme.fillColor,
+          borderRadius: borderRadius ?? BorderRadius.circular(12.0),
+        ),
+        child: Row(
+          children: [
+            if (prefixIcon != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: prefixIcon,
               ),
-              decoration: InputDecoration(
-                hintText: hintText,
-                hintStyle: TextStyle(
-                  color: hintColor ?? const Color(0xFFbdbdbd),
-                  fontSize: fontSize ?? 16,
+            Expanded(
+              child: TextField(
+                controller: controller,
+                onChanged: onChanged,
+                onSubmitted: (value) {
+                  FocusScope.of(context).unfocus(); // Dismiss keyboard on submit
+                  onSubmitted?.call(value);
+                },
+                style: theme.textTheme.bodyMedium,
+                decoration: InputDecoration(
+                  hintText: hintText,
+                  hintStyle: theme.textTheme.bodyMedium?.copyWith(color: hintColor ?? theme.hintColor),
+                  border: InputBorder.none, // Remove default underline
+                  contentPadding: const EdgeInsets.symmetric(vertical: 18.5),
+                  suffixIcon: suffixIcon,
                 ),
-                border: InputBorder.none, // Remove default underline
-                contentPadding: const EdgeInsets.symmetric(vertical: 18.5),
-                suffixIcon: suffixIcon,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

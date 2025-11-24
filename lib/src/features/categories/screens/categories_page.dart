@@ -12,6 +12,7 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     List<Product> filteredProducts;
 
     if (category == 'All') {
@@ -30,10 +31,8 @@ class CategoriesPage extends StatelessWidget {
     print('Filtered Products: ${filteredProducts.map((p) => p.name).toList()}');
 
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text(category),
-        backgroundColor: const Color(0xFF1E1E1E),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => GoRouter.of(context).go('/'),

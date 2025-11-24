@@ -25,22 +25,22 @@ class _ItemListingPageState extends State<ItemListingPage> {
     // For now, we'll find a dummy product. In a real app, you'd fetch this from a service.
     final product = dummyProducts.firstWhere((p) => p.id == widget.itemId, orElse: () => dummyProducts.first);
     final cart = Provider.of<CartModel>(context, listen: false);
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: 300.0,
             pinned: true,
-            backgroundColor: const Color(0xFF1E1E1E),
+            backgroundColor: theme.appBarTheme.backgroundColor,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              icon: Icon(Icons.arrow_back, color: theme.iconTheme.color),
               onPressed: () => GoRouter.of(context).pop(),
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.share, color: Colors.white),
+                icon: Icon(Icons.share, color: theme.iconTheme.color),
                 onPressed: () {
                   // Handle share action
                 },
@@ -50,8 +50,8 @@ class _ItemListingPageState extends State<ItemListingPage> {
               background: CachedNetworkImage(
                 imageUrl: product.imageUrl,
                 fit: BoxFit.cover,
-                placeholder: (context, url) => Container(color: Colors.grey.shade800),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                placeholder: (context, url) => Container(color: theme.cardColor),
+                errorWidget: (context, url, error) => Icon(Icons.error, color: theme.iconTheme.color),
               ),
             ),
           ),
@@ -68,11 +68,11 @@ class _ItemListingPageState extends State<ItemListingPage> {
                       Expanded(
                         child: Text(
                           product.name,
-                          style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+                          style: theme.textTheme.headlineSmall,
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.favorite_border, color: Colors.white, size: 28),
+                        icon: Icon(Icons.favorite_border, color: theme.iconTheme.color, size: 28),
                         onPressed: () {
                           // Handle favorite action
                         },
@@ -82,25 +82,25 @@ class _ItemListingPageState extends State<ItemListingPage> {
                   const SizedBox(height: 8),
                   Text(
                     '\$${product.price.toStringAsFixed(2)}',
-                    style: const TextStyle(color: Color(0xFFAADD78), fontSize: 24, fontWeight: FontWeight.w500),
+                    style: theme.textTheme.headlineSmall?.copyWith(color: theme.colorScheme.tertiary),
                   ),
                   const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Quantity',
-                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                        style: theme.textTheme.titleMedium,
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color(0xFF2C2C2C),
+                          color: theme.cardColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Row(
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.remove, color: Colors.white),
+                              icon: Icon(Icons.remove, color: theme.iconTheme.color),
                               onPressed: () {
                                 if (_quantity > 1) {
                                   setState(() {
@@ -111,10 +111,10 @@ class _ItemListingPageState extends State<ItemListingPage> {
                             ),
                             Text(
                               '$_quantity',
-                              style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                              style: theme.textTheme.titleMedium,
                             ),
                             IconButton(
-                              icon: const Icon(Icons.add, color: Colors.white),
+                              icon: Icon(Icons.add, color: theme.iconTheme.color),
                               onPressed: () {
                                 setState(() {
                                   _quantity++;
@@ -127,11 +127,11 @@ class _ItemListingPageState extends State<ItemListingPage> {
                     ],
                   ),
                   const SizedBox(height: 24),
-                  const Divider(color: Color(0xFF2C2C2C)),
-                  _buildExpandableSection('Product Details', product.description),
-                  const Divider(color: Color(0xFF2C2C2C)),
-                  _buildExpandableSection('Nutritional Facts', 'Calories: 150, Fat: 10g, Protein: 5g, Carbs: 10g'), // Placeholder
-                  const Divider(color: Color(0xFF2C2C2C)),
+                  Divider(color: theme.dividerColor),
+                  _buildExpandableSection(context, 'Product Details', product.description),
+                  Divider(color: theme.dividerColor),
+                  _buildExpandableSection(context, 'Nutritional Facts', 'Calories: 150, Fat: 10g, Protein: 5g, Carbs: 10g'), // Placeholder
+                  Divider(color: theme.dividerColor),
                 ],
               ),
             ),
@@ -146,10 +146,10 @@ class _ItemListingPageState extends State<ItemListingPage> {
             cart.add(product, quantity: _quantity);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                backgroundColor: const Color(0xFF2C2C2C),
+                backgroundColor: theme.snackBarTheme.backgroundColor,
                 content: Text(
                   '${product.name} (x$_quantity) added to cart!',
-                  style: const TextStyle(color: Colors.white),
+                  style: theme.snackBarTheme.contentTextStyle,
                 ),
                 duration: const Duration(seconds: 2),
               ),
@@ -161,20 +161,21 @@ class _ItemListingPageState extends State<ItemListingPage> {
     );
   }
 
-  Widget _buildExpandableSection(String title, String content) {
+  Widget _buildExpandableSection(BuildContext context, String title, String content) {
+    final theme = Theme.of(context);
     return ExpansionTile(
       title: Text(
         title,
-        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+        style: theme.textTheme.titleMedium,
       ),
-      iconColor: Colors.white,
-      collapsedIconColor: Colors.white,
+      iconColor: theme.iconTheme.color,
+      collapsedIconColor: theme.iconTheme.color,
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0).copyWith(top: 0),
           child: Text(
             content,
-            style: const TextStyle(color: Colors.white70, fontSize: 16),
+            style: theme.textTheme.bodyMedium,
           ),
         ),
       ],

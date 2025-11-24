@@ -1,3 +1,4 @@
+import 'package:hci_app/src/core/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -21,11 +22,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
         title: const Text('Checkout'),
-        backgroundColor: const Color(0xFF1E1E1E),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => GoRouter.of(context).pop(),
@@ -35,35 +36,35 @@ class _CheckoutPageState extends State<CheckoutPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildStepIndicator(),
+            _buildStepIndicator(theme),
             const SizedBox(height: 24),
             // Conditionally display step content
-            if (_currentStep == 0) _buildAddressStep(),
-            if (_currentStep == 1) _buildPaymentStep(),
-            if (_currentStep == 2) _buildReviewStep(),
+            if (_currentStep == 0) _buildAddressStep(theme),
+            if (_currentStep == 1) _buildPaymentStep(theme),
+            if (_currentStep == 2) _buildReviewStep(theme),
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomButtons(),
+      bottomNavigationBar: _buildBottomButtons(theme),
     );
   }
 
-  Widget _buildStepIndicator() {
+  Widget _buildStepIndicator(ThemeData theme) {
     return Row(
       children: [
-        _buildIndicatorCircle('Address', 0),
-        const Expanded(child: Divider(color: Color(0xFF424242))),
-        _buildIndicatorCircle('Payment', 1),
-        const Expanded(child: Divider(color: Color(0xFF424242))),
-        _buildIndicatorCircle('Review', 2),
+        _buildIndicatorCircle(theme, 'Address', 0),
+        Expanded(child: Divider(color: theme.dividerColor)),
+        _buildIndicatorCircle(theme, 'Payment', 1),
+        Expanded(child: Divider(color: theme.dividerColor)),
+        _buildIndicatorCircle(theme, 'Review', 2),
       ],
     );
   }
 
-  Widget _buildIndicatorCircle(String title, int stepIndex) {
+  Widget _buildIndicatorCircle(ThemeData theme, String title, int stepIndex) {
     bool isCompleted = _currentStep > stepIndex;
     bool isActive = _currentStep == stepIndex;
-    Color color = isCompleted || isActive ? const Color(0xFF4CAF50) : const Color(0xFF424242);
+    Color color = isCompleted || isActive ? theme.colorScheme.tertiary : theme.dividerColor;
 
     return Column(
       children: [
@@ -71,52 +72,55 @@ class _CheckoutPageState extends State<CheckoutPage> {
           backgroundColor: color,
           radius: 20,
           child: isCompleted
-              ? const Icon(Icons.check, color: Colors.white)
-              : Text('${stepIndex + 1}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              ? Icon(Icons.check, color: theme.colorScheme.onPrimary)
+              : Text('${stepIndex + 1}', style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.onPrimary)),
         ),
         const SizedBox(height: 8),
         Text(
           title,
-          style: TextStyle(color: color, fontWeight: isActive ? FontWeight.bold : FontWeight.normal),
+          style: theme.textTheme.bodyMedium?.copyWith(color: color, fontWeight: isActive ? FontWeight.bold : FontWeight.normal),
         ),
       ],
     );
   }
 
-  Widget _buildAddressStep() {
+  Widget _buildAddressStep(ThemeData theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Select Delivery Address', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white)),
+        Text('Select Delivery Address', style: theme.textTheme.headlineSmall),
         const SizedBox(height: 16),
         _buildSelectionCard(
+          theme,
           title: 'Home',
           subtitle: '123 Main St, Anytown, USA',
           isSelected: _selectedAddress == '123 Main St, Anytown, USA',
           onTap: () => setState(() => _selectedAddress = '123 Main St, Anytown, USA'),
         ),
         _buildSelectionCard(
+          theme,
           title: 'Work',
           subtitle: '456 Oak Ave, Sometown, USA',
           isSelected: _selectedAddress == '456 Oak Ave, Sometown, USA',
           onTap: () => setState(() => _selectedAddress = '456 Oak Ave, Sometown, USA'),
         ),
         TextButton.icon(
-          icon: const Icon(Icons.add, color: Color(0xFF4CAF50)),
-          label: const Text('Add New Address', style: TextStyle(color: Color(0xFF4CAF50))),
+          icon: Icon(Icons.add, color: theme.colorScheme.tertiary),
+          label: Text('Add New Address', style: TextStyle(color: theme.colorScheme.tertiary)),
           onPressed: () {},
         ),
       ],
     );
   }
 
-  Widget _buildPaymentStep() {
+  Widget _buildPaymentStep(ThemeData theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Select Payment Method', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white)),
+        Text('Select Payment Method', style: theme.textTheme.headlineSmall),
         const SizedBox(height: 16),
         _buildSelectionCard(
+          theme,
           title: 'Credit Card',
           subtitle: '**** **** **** 1234',
           icon: Icons.credit_card,
@@ -124,6 +128,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           onTap: () => setState(() => _selectedPayment = 'Credit Card'),
         ),
         _buildSelectionCard(
+          theme,
           title: 'PayPal',
           subtitle: 'user@example.com',
           icon: Icons.paypal,
@@ -134,16 +139,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Widget _buildReviewStep() {
+  Widget _buildReviewStep(ThemeData theme) {
     final cart = Provider.of<CartModel>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Review Your Order', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white)),
+        Text('Review Your Order', style: theme.textTheme.headlineSmall),
         const SizedBox(height: 16),
         // Order Summary Card
         Card(
-          color: const Color(0xFF1E1E1E),
+          color: theme.cardColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -165,25 +170,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             children: [
                               Text(
                                 item.product.name,
-                                style: const TextStyle(color: Colors.white),
+                                style: theme.textTheme.bodyMedium,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              Text('Qty: ${item.quantity}', style: const TextStyle(color: Colors.white70)),
+                              Text('Qty: ${item.quantity}', style: theme.textTheme.bodySmall),
                             ],
                           ),
                         ),
                         const SizedBox(width: 16),
-                        Text('\$${(item.product.price * item.quantity).toStringAsFixed(2)}', style: const TextStyle(color: Colors.white)),
+                        Text("\$${(item.product.price * item.quantity).toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
                       ],
                     );
                   },
                 ),
-                const Divider(color: Color(0xFF424242)),
-                _buildSummaryRow('Subtotal', cart.totalPrice),
-                _buildSummaryRow('Delivery Fee', 2.00),
-                const Divider(color: Color(0xFF424242)),
-                _buildSummaryRow('Total', cart.totalPrice + 2.00, isTotal: true),
+                Divider(color: theme.dividerColor),
+                _buildSummaryRow(theme, 'Subtotal', cart.totalPrice),
+                _buildSummaryRow(theme, 'Delivery Fee', AppConstants.deliveryFee),
+                Divider(color: theme.dividerColor),
+                _buildSummaryRow(theme, 'Total', cart.totalPrice + AppConstants.deliveryFee, isTotal: true),
               ],
             ),
           ),
@@ -192,7 +197,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-    Widget _buildSummaryRow(String title, double amount, {bool isTotal = false}) {
+    Widget _buildSummaryRow(ThemeData theme, String title, double amount, {bool isTotal = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
@@ -200,45 +205,37 @@ class _CheckoutPageState extends State<CheckoutPage> {
         children: [
           Text(
             title,
-            style: TextStyle(
-              color: isTotal ? Colors.white : Colors.white70,
-              fontSize: isTotal ? 20 : 16,
-              fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-            ),
+            style: isTotal ? theme.textTheme.titleLarge : theme.textTheme.bodyMedium,
           ),
           Text(
-            '\$${amount.toStringAsFixed(2)}',
-            style: TextStyle(
-              color: isTotal ? Colors.white : Colors.white70,
-              fontSize: isTotal ? 20 : 16,
-              fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-            ),
+            "\$${amount.toStringAsFixed(2)}",
+            style: isTotal ? theme.textTheme.titleLarge : theme.textTheme.bodyMedium,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSelectionCard({required String title, required String subtitle, IconData? icon, required bool isSelected, required VoidCallback onTap}) {
+  Widget _buildSelectionCard(ThemeData theme, {required String title, required String subtitle, IconData? icon, required bool isSelected, required VoidCallback onTap}) {
     return Card(
-      color: const Color(0xFF1E1E1E),
+      color: theme.cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: isSelected ? const Color(0xFF4CAF50) : const Color(0xFF1E1E1E), width: 2),
+        side: BorderSide(color: isSelected ? theme.colorScheme.tertiary : theme.dividerColor, width: 2),
       ),
       child: ListTile(
-        leading: icon != null ? Icon(icon, color: Colors.white) : null,
-        title: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        subtitle: Text(subtitle, style: const TextStyle(color: Colors.white70)),
+        leading: icon != null ? Icon(icon, color: theme.iconTheme.color) : null,
+        title: Text(title, style: theme.textTheme.titleMedium),
+        subtitle: Text(subtitle, style: theme.textTheme.bodySmall),
         onTap: onTap,
-        trailing: isSelected ? const Icon(Icons.check_circle, color: Color(0xFF4CAF50)) : null,
+        trailing: isSelected ? Icon(Icons.check_circle, color: theme.colorScheme.tertiary) : null,
       ),
     );
   }
 
-  Widget _buildBottomButtons() {
+  Widget _buildBottomButtons(ThemeData theme) {
     return Container(
-      color: const Color(0xFF121212),
+      color: theme.bottomAppBarTheme.color,
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
@@ -250,7 +247,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     _currentStep -= 1;
                   });
                 },
-                child: const Text('BACK', style: TextStyle(color: Colors.white)),
+                child: Text('BACK', style: theme.textTheme.labelLarge),
               ),
             ),
           if (_currentStep > 0) const SizedBox(width: 16),
@@ -271,7 +268,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   final newOrder = OrderModel(
                     id: generateCustomId(), // Unique ID for the order
                     items: List.from(cart.items), // Copy items from cart
-                    totalPrice: cart.totalPrice + 2.00, // Subtotal + delivery fee
+                    totalPrice: cart.totalPrice + AppConstants.deliveryFee, // Subtotal + delivery fee
                     orderDate: DateTime.now(),
                     deliveryAddress: _selectedAddress ?? 'Unknown',
                     paymentMethod: _selectedPayment ?? 'Unknown',
@@ -281,7 +278,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   cart.clearCart(); // Clear the cart after placing the order
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Order placed successfully!')),
+                    SnackBar(content: Text('Order placed successfully!', style: theme.snackBarTheme.contentTextStyle)),
                   );
                   context.go('/delivery-tracking');
                 }

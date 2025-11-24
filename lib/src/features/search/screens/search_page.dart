@@ -33,20 +33,21 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.black, // Assuming a dark background
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: const Color(0xFF1E1E1E),
+            backgroundColor: theme.appBarTheme.backgroundColor,
             floating: true,
             snap: true,
             title: CustomTextField(
               controller: _searchController,
               hintText: 'Search for groceries',
-              prefixIcon: const Icon(Icons.search, color: Color(0xFFBDBDBD)),
+              prefixIcon: Icon(Icons.search, color: theme.iconTheme.color),
               suffixIcon: IconButton(
-                icon: const Icon(Icons.clear, color: Color(0xFFBDBDBD)),
+                icon: Icon(Icons.clear, color: theme.iconTheme.color),
                 onPressed: () {
                   _searchController.clear();
                   setState(() {
@@ -57,7 +58,7 @@ class _SearchPageState extends State<SearchPage> {
               onSubmitted: (value) => _performSearch(value),
             ),
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              icon: Icon(Icons.arrow_back, color: theme.iconTheme.color),
               onPressed: () {
                 if (GoRouter.of(context).canPop()) {
                   GoRouter.of(context).pop();
@@ -74,25 +75,25 @@ class _SearchPageState extends State<SearchPage> {
                       children: [
                         Text(
                           'Recent Searches',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
+                          style: theme.textTheme.titleLarge,
                         ),
                         const SizedBox(height: 16),
                         Wrap(
                           spacing: 8.0,
                           runSpacing: 8.0,
                           children: _recentSearches.map((search) => ActionChip(
-                            label: Text(search, style: const TextStyle(color: Colors.white)),
+                            label: Text(search, style: theme.textTheme.bodyMedium),
                             onPressed: () {
                               _searchController.text = search;
                               _performSearch(search);
                             },
-                            backgroundColor: const Color(0xFF2C2C2C),
+                            backgroundColor: theme.cardColor,
                           )).toList(),
                         ),
                         const SizedBox(height: 24),
                         Text(
                           'Popular Items',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
+                          style: theme.textTheme.titleLarge,
                         ),
                         const SizedBox(height: 16),
                         // Placeholder for popular items, could be a ListView.builder of ProductCards
