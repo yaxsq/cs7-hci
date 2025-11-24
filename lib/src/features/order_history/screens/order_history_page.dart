@@ -2,19 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/order_history_model.dart';
+import 'package:hci_app/generated/app_localizations.dart';
 
-class OrderHistoryPage extends StatelessWidget {
+class OrderHistoryPage extends StatefulWidget {
   const OrderHistoryPage({super.key});
+
+  @override
+  State<OrderHistoryPage> createState() => _OrderHistoryPageState();
+}
+
+class _OrderHistoryPageState extends State<OrderHistoryPage> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final localizations = AppLocalizations.of(context)!;
+      Provider.of<OrderHistoryModel>(context, listen: false).populateOrders(localizations);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Consumer<OrderHistoryModel>(
       builder: (context, orderHistory, child) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Order History'),
+            title: Text(localizations.orderHistory),
           ),
           body: ListView.builder(
             itemCount: orderHistory.orders.length,
