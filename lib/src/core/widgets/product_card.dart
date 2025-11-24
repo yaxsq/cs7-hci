@@ -60,94 +60,96 @@ class ProductCard extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            product.name,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              Text(
-                                '\$${product.price.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  color: Color(0xFFAADD78), // Green for current price
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.name,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
                               ),
-                              if (product.oldPrice != null) ...[
-                                const SizedBox(width: 8),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
                                 Text(
-                                  '\$${product.oldPrice!.toStringAsFixed(2)}',
+                                  '\$${product.price.toStringAsFixed(2)}',
                                   style: const TextStyle(
-                                    color: Color(0xFFBDBDBD), // Grey for old price
+                                    color: Color(0xFFAADD78), // Green for current price
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    decoration: TextDecoration.lineThrough,
                                   ),
                                 ),
-                              ],
-                            ],
-                          ),
-                        ],
-                      ),
-                      Consumer<CartModel>(
-                        builder: (context, cart, child) {
-                          final itemInCart = cart.items.where((item) => item.product.id == product.id).firstOrNull;
-
-                          if (itemInCart == null) {
-                            return CustomButton(
-                              text: 'Add',
-                              onPressed: () {
-                                cart.add(product);
-                              },
-                              width: double.infinity,
-                            );
-                          } else {
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF2C2C2C),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.remove, color: Colors.white),
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                    onPressed: () => cart.decrement(itemInCart),
-                                  ),
+                                if (product.oldPrice != null) ...[
+                                  const SizedBox(width: 8),
                                   Text(
-                                    '${itemInCart.quantity}',
-                                    style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.add, color: Colors.white),
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                    onPressed: () => cart.increment(itemInCart),
+                                    '\$${product.oldPrice!.toStringAsFixed(2)}',
+                                    style: const TextStyle(
+                                      color: Color(0xFFBDBDBD), // Grey for old price
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
                                   ),
                                 ],
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                              ],
+                            ),
+                          ],
+                        ),
+                        Consumer<CartModel>(
+                          builder: (context, cart, child) {
+                            final itemInCart = cart.items.where((item) => item.product.id == product.id).firstOrNull;
+
+                            if (itemInCart == null) {
+                              return CustomButton(
+                                text: 'Add',
+                                onPressed: () {
+                                  cart.add(product);
+                                },
+                                width: double.infinity,
+                              );
+                            } else {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF2C2C2C),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.remove, color: Colors.white),
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      onPressed: () => cart.decrement(itemInCart),
+                                    ),
+                                    Text(
+                                      '${itemInCart.quantity}',
+                                      style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.add, color: Colors.white),
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      onPressed: () => cart.increment(itemInCart),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

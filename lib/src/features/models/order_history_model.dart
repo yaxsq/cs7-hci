@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:hci_app/src/features/models/order_model.dart';
+import 'package:hci_app/src/features/models/dummy_orders.dart';
 
 class OrderHistoryModel extends ChangeNotifier {
-  final List<Order> _orders = [];
+  final List<OrderModel> _orders = dummyOrders;
 
-  List<Order> get orders => _orders;
+  List<OrderModel> get orders => _orders;
 
-  void addOrder(Order order) {
-    _orders.insert(0, order); // Add new orders to the beginning
+  void addOrder(OrderModel order) {
+    _orders.add(order);
     notifyListeners();
   }
 }

@@ -64,7 +64,7 @@ class CartPage extends StatelessWidget {
                     const SizedBox(height: 16),
                     CustomButton(
                       text: 'Proceed to Checkout',
-                      onPressed: () {
+                      onPressed: cart.items.isEmpty ? null : () {
                         GoRouter.of(context).go('/checkout');
                       },
                       width: double.infinity,

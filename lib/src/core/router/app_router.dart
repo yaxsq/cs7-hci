@@ -7,6 +7,7 @@ import 'package:hci_app/src/features/checkout/screens/checkout_page.dart';
 import 'package:hci_app/src/features/delivery_tracking/screens/delivery_tracking_page.dart';
 import 'package:hci_app/src/features/item_listing/screens/item_listing_page.dart';
 import 'package:hci_app/src/features/landing/screens/landing_page.dart';
+import 'package:hci_app/src/features/order_history/screens/order_history_page.dart';
 import 'package:hci_app/src/features/search/screens/search_page.dart';
 import 'package:hci_app/src/features/shell/screens/shell_page.dart';
 
@@ -35,6 +36,10 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
+          path: '/categories',
+          redirect: (_, __) => '/categories/All',
+        ),
+        GoRoute(
           path: '/categories/:category',
           builder: (context, state) => CategoriesPage(
             category: state.pathParameters['category']!,
@@ -45,9 +50,14 @@ final GoRouter router = GoRouter(
           builder: (context, state) => const CartPage(),
         ),
         GoRoute(
-          path: '/account',
-          builder: (context, state) => const AccountPage(),
-        ),
+            path: '/account',
+            builder: (context, state) => const AccountPage(),
+            routes: [
+              GoRoute(
+                path: 'order-history',
+                builder: (context, state) => const OrderHistoryPage(),
+              ),
+            ]),
         GoRoute(
           path: '/search',
           builder: (context, state) => const SearchPage(),

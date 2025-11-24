@@ -149,12 +149,36 @@ class _CheckoutPageState extends State<CheckoutPage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                ...cart.items.map((item) => ListTile(
-                  leading: Image.network(item.product.imageUrl, width: 50, height: 50, fit: BoxFit.cover),
-                  title: Text(item.product.name, style: const TextStyle(color: Colors.white)),
-                  subtitle: Text('Qty: ${item.quantity}', style: const TextStyle(color: Colors.white70)),
-                  trailing: Text('\$${(item.product.price * item.quantity).toStringAsFixed(2)}', style: const TextStyle(color: Colors.white)),
-                )),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: cart.items.length,
+                  itemBuilder: (context, index) {
+                    final item = cart.items[index];
+                    return Row(
+                      children: [
+                        Image.network(item.product.imageUrl, width: 50, height: 50, fit: BoxFit.cover),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item.product.name,
+                                style: const TextStyle(color: Colors.white),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text('Qty: ${item.quantity}', style: const TextStyle(color: Colors.white70)),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Text('\$${(item.product.price * item.quantity).toStringAsFixed(2)}', style: const TextStyle(color: Colors.white)),
+                      ],
+                    );
+                  },
+                ),
                 const Divider(color: Color(0xFF424242)),
                 _buildSummaryRow('Subtotal', cart.totalPrice),
                 _buildSummaryRow('Delivery Fee', 2.00),
@@ -244,10 +268,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   final cart = Provider.of<CartModel>(context, listen: false);
                   final orderHistory = Provider.of<OrderHistoryModel>(context, listen: false);
 
-                  final newOrder = Order(
+                  final newOrder = OrderModel(
                     id: generateCustomId(), // Unique ID for the order
                     items: List.from(cart.items), // Copy items from cart
-                    totalAmount: cart.totalPrice + 2.00, // Subtotal + delivery fee
+                    totalPrice: cart.totalPrice + 2.00, // Subtotal + delivery fee
                     orderDate: DateTime.now(),
                     deliveryAddress: _selectedAddress ?? 'Unknown',
                     paymentMethod: _selectedPayment ?? 'Unknown',

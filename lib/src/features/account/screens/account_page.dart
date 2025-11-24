@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hci_app/src/features/delivery_tracking/screens/delivery_tracking_page.dart';
 
 class AccountPage extends StatelessWidget {
@@ -42,7 +43,7 @@ class AccountPage extends StatelessWidget {
               const Icon(Icons.history, color: Colors.white, size: 20),
               const SizedBox(width: 8),
               TextButton(
-                onPressed: () {},
+                onPressed: () => GoRouter.of(context).go('/account/order-history'),
                 child: const Text('Order History', style: TextStyle(color: Colors.white)),
               ),
             ],
