@@ -685,6 +685,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Crisp red apples.'**
   String get productDescription_9;
+
+  /// No description provided for @promoCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Promo Code'**
+  String get promoCode;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
 }
 
 class _AppLocalizationsDelegate

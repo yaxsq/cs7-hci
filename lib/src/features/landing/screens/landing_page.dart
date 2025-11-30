@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hci_app/src/core/analytics/analytics_service.dart';
+import 'package:hci_app/src/core/analytics/route_aware_widget.dart';
 import 'package:hci_app/src/core/widgets/custom_text_field.dart';
 import 'package:hci_app/src/core/widgets/category_chip.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
@@ -7,14 +9,26 @@ import 'package:hci_app/src/features/models/dummy_products.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 import 'package:hci_app/generated/app_localizations.dart';
 
-class LandingPage extends StatefulWidget {
+class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
   @override
-  State<LandingPage> createState() => _LandingPageState();
+  Widget build(BuildContext context) {
+    return const RouteAwareWidget(
+      screenName: 'Landing',
+      child: LandingPageContent(),
+    );
+  }
 }
 
-class _LandingPageState extends State<LandingPage> {
+class LandingPageContent extends StatefulWidget {
+  const LandingPageContent({super.key});
+
+  @override
+  State<LandingPageContent> createState() => _LandingPageContentState();
+}
+
+class _LandingPageContentState extends State<LandingPageContent> {
   final TextEditingController _searchController = TextEditingController();
   String _selectedCategory = 'All';
 
@@ -119,6 +133,10 @@ class _LandingPageState extends State<LandingPage> {
                                                                           isSelected: _selectedCategory == 'All',
 
                                                                           onPressed: () {
+                                                                            AnalyticsService.instance.logEvent(
+                                                                              'select_category',
+                                                                              parameters: {'category_name': 'All'},
+                                                                            );
 
                                                                             setState(() {
 
@@ -143,6 +161,10 @@ class _LandingPageState extends State<LandingPage> {
                                                                           isSelected: _selectedCategory == 'Fruits',
 
                                                                           onPressed: () {
+                                                                            AnalyticsService.instance.logEvent(
+                                                                              'select_category',
+                                                                              parameters: {'category_name': 'Fruits'},
+                                                                            );
 
                                                                             setState(() {
 
@@ -167,6 +189,10 @@ class _LandingPageState extends State<LandingPage> {
                                                                           isSelected: _selectedCategory == 'Dairy',
 
                                                                           onPressed: () {
+                                                                            AnalyticsService.instance.logEvent(
+                                                                              'select_category',
+                                                                              parameters: {'category_name': 'Dairy'},
+                                                                            );
 
                                                                             setState(() {
 
@@ -191,6 +217,10 @@ class _LandingPageState extends State<LandingPage> {
                                                                           isSelected: _selectedCategory == 'Bakery',
 
                                                                           onPressed: () {
+                                                                            AnalyticsService.instance.logEvent(
+                                                                              'select_category',
+                                                                              parameters: {'category_name': 'Bakery'},
+                                                                            );
 
                                                                             setState(() {
 
@@ -215,6 +245,10 @@ class _LandingPageState extends State<LandingPage> {
                                                                           isSelected: _selectedCategory == 'Vegetables',
 
                                                                           onPressed: () {
+                                                                            AnalyticsService.instance.logEvent(
+                                                                              'select_category',
+                                                                              parameters: {'category_name': 'Vegetables'},
+                                                                            );
 
                                                                             setState(() {
 
@@ -239,6 +273,10 @@ class _LandingPageState extends State<LandingPage> {
                                                                           isSelected: _selectedCategory == 'Meat',
 
                                                                           onPressed: () {
+                                                                            AnalyticsService.instance.logEvent(
+                                                                              'select_category',
+                                                                              parameters: {'category_name': 'Meat'},
+                                                                            );
 
                                                                             setState(() {
 
@@ -439,9 +477,7 @@ class _LandingPageState extends State<LandingPage> {
       ),
 
     );
-
   }
-
 }
 
 

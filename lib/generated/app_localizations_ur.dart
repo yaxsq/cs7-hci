@@ -307,4 +307,10 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get productDescription_9 => 'کرسپی سرخ سیب۔';
+
+  @override
+  String get promoCode => 'پرومو کوڈ';
+
+  @override
+  String get apply => 'لاگو کریں';
 }

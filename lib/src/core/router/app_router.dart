@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hci_app/main.dart';
 import 'package:hci_app/src/features/account/screens/account_page.dart';
 import 'package:hci_app/src/features/account/screens/add_address_page.dart';
 import 'package:hci_app/src/features/cart/screens/cart_page.dart';
@@ -20,6 +21,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final GoRouter router = GoRouter(
   initialLocation: '/splash',
   navigatorKey: _rootNavigatorKey,
+  observers: [routeObserver],
   routes: [
     GoRoute(
       path: '/splash',

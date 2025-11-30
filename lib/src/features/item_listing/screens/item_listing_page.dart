@@ -2,22 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hci_app/src/core/analytics/route_aware_widget.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 import 'package:hci_app/src/features/models/dummy_products.dart';
 import 'package:hci_app/src/core/widgets/custom_button.dart';
 import 'package:hci_app/generated/app_localizations.dart';
 
-class ItemListingPage extends StatefulWidget {
+class ItemListingPage extends StatelessWidget {
   final String itemId;
 
   const ItemListingPage({super.key, required this.itemId});
 
   @override
-  State<ItemListingPage> createState() => _ItemListingPageState();
+  Widget build(BuildContext context) {
+    return RouteAwareWidget(
+      screenName: 'ItemListing',
+      child: _ItemListingPageContent(itemId: itemId),
+    );
+  }
 }
 
-class _ItemListingPageState extends State<ItemListingPage> {
+class _ItemListingPageContent extends StatefulWidget {
+  final String itemId;
+
+  const _ItemListingPageContent({required this.itemId});
+
+  @override
+  State<_ItemListingPageContent> createState() => _ItemListingPageState();
+}
+
+class _ItemListingPageState extends State<_ItemListingPageContent> {
   int _quantity = 1;
 
   @override

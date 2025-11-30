@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hci_app/src/core/analytics/analytics_service.dart';
+import 'package:hci_app/src/core/analytics/route_aware_widget.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
 import 'package:hci_app/src/core/widgets/category_chip.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
@@ -10,6 +12,20 @@ class CategoriesPage extends StatelessWidget {
   final String category; // Add category parameter
 
   const CategoriesPage({super.key, required this.category});
+
+  @override
+  Widget build(BuildContext context) {
+    return RouteAwareWidget(
+      screenName: 'Categories',
+      child: _CategoriesPageContent(category: category),
+    );
+  }
+}
+
+class _CategoriesPageContent extends StatelessWidget {
+  final String category;
+
+  const _CategoriesPageContent({required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +80,13 @@ class CategoriesPage extends StatelessWidget {
                     child: CategoryChip(
                       text: cat,
                       isSelected: category == cat,
-                      onPressed: () => GoRouter.of(context).go('/categories/$cat'),
+                      onPressed: () {
+                        AnalyticsService.instance.logEvent(
+                          'select_category',
+                          parameters: {'category_name': cat},
+                        );
+                        GoRouter.of(context).go('/categories/$cat');
+                      },
                     ),
                   );
                 }).toList(),

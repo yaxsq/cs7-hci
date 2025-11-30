@@ -1,6 +1,8 @@
 import 'package:hci_app/src/core/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hci_app/src/core/analytics/analytics_service.dart';
+import 'package:hci_app/src/core/analytics/route_aware_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/order_history_model.dart';
@@ -9,14 +11,26 @@ import 'package:hci_app/src/features/models/custom_id.dart';
 import 'package:hci_app/src/core/widgets/custom_button.dart';
 import 'package:hci_app/generated/app_localizations.dart';
 
-class CheckoutPage extends StatefulWidget {
+class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
 
   @override
-  State<CheckoutPage> createState() => _CheckoutPageState();
+  Widget build(BuildContext context) {
+    return const RouteAwareWidget(
+      screenName: 'Checkout',
+      child: _CheckoutPageContent(),
+    );
+  }
 }
 
-class _CheckoutPageState extends State<CheckoutPage> {
+class _CheckoutPageContent extends StatefulWidget {
+  const _CheckoutPageContent();
+
+  @override
+  State<_CheckoutPageContent> createState() => _CheckoutPageState();
+}
+
+class _CheckoutPageState extends State<_CheckoutPageContent> {
   int _currentStep = 0;
   String? _selectedAddress = '123 Main St, Anytown, USA';
   String? _selectedPayment = 'Credit Card';
@@ -181,7 +195,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                         ),
                         const SizedBox(width: 16),
-                        Text("\$${(item.product.price * item.quantity).toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
+                        Text("\${(item.product.price * item.quantity).toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
                       ],
                     );
                   },
@@ -210,7 +224,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             style: isTotal ? theme.textTheme.titleLarge : theme.textTheme.bodyMedium,
           ),
           Text(
-            "\$${amount.toStringAsFixed(2)}",
+            "\${amount.toStringAsFixed(2)}",
             style: isTotal ? theme.textTheme.titleLarge : theme.textTheme.bodyMedium,
           ),
         ],
@@ -277,6 +291,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   );
 
                   orderHistory.addOrder(newOrder);
+                  AnalyticsService.instance.logEvent(
+                    'complete_purchase',
+                    parameters: {
+                      'total_amount': newOrder.totalPrice,
+                      'items_count': newOrder.items.length,
+                    },
+                  );
                   cart.clearCart(); // Clear the cart after placing the order
 
                   ScaffoldMessenger.of(context).showSnackBar(

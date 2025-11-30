@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hci_app/src/core/analytics/analytics_service.dart';
+import 'package:hci_app/src/core/analytics/route_aware_widget.dart';
 import 'package:hci_app/src/core/widgets/custom_text_field.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 import 'package:hci_app/src/features/models/dummy_products.dart';
 import 'package:hci_app/generated/app_localizations.dart';
 
-class SearchPage extends StatefulWidget {
+class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  Widget build(BuildContext context) {
+    return const RouteAwareWidget(
+      screenName: 'Search',
+      child: _SearchPageContent(),
+    );
+  }
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageContent extends StatefulWidget {
+  const _SearchPageContent();
+
+  @override
+  State<_SearchPageContent> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<_SearchPageContent> {
   final TextEditingController _searchController = TextEditingController();
   List<Product> _searchResults = []; // Placeholder for search results
   
@@ -24,6 +38,10 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _performSearch(String query, AppLocalizations localizations) {
+    AnalyticsService.instance.logEvent(
+      'search',
+      parameters: {'search_term': query},
+    );
     // In a real app, you would filter a product list or call an API here
     setState(() {
       _searchResults = getDummyProducts(localizations).where((product) =>

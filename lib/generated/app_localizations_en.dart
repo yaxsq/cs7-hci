@@ -307,4 +307,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get productDescription_9 => 'Crisp red apples.';
+
+  @override
+  String get promoCode => 'Promo Code';
+
+  @override
+  String get apply => 'Apply';
 }

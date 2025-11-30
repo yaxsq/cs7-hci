@@ -1,6 +1,8 @@
 import 'package:hci_app/src/core/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hci_app/src/core/analytics/analytics_service.dart';
+import 'package:hci_app/src/core/analytics/route_aware_widget.dart';
 import 'package:hci_app/src/core/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
@@ -9,6 +11,18 @@ import 'package:hci_app/generated/app_localizations.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const RouteAwareWidget(
+      screenName: 'Cart',
+      child: _CartPageContent(),
+    );
+  }
+}
+
+class _CartPageContent extends StatelessWidget {
+  const _CartPageContent();
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +45,31 @@ class CartPage extends StatelessWidget {
                   },
                 ),
               ),
+              // Promo Code
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: localizations.promoCode,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        AnalyticsService.instance.logEvent(
+                          'apply_promo_code',
+                          parameters: {'promo_code': 'TEST'},
+                        );
+                      },
+                      child: Text(localizations.apply),
+                    ),
+                  ],
+                ),
+              ),
               // Order Summary
               Container(
                 padding: const EdgeInsets.all(16.0),
@@ -46,7 +85,7 @@ class CartPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(localizations.subtotal, style: theme.textTheme.bodyMedium),
-                        Text("\$${cart.totalPrice.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
+                        Text("\${cart.totalPrice.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -54,7 +93,7 @@ class CartPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(localizations.deliveryFee, style: theme.textTheme.bodyMedium),
-                        Text("\$${AppConstants.deliveryFee.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
+                        Text("\${AppConstants.deliveryFee.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium),
                       ],
                     ),
                     Divider(color: theme.dividerColor),
@@ -62,13 +101,14 @@ class CartPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(localizations.total, style: theme.textTheme.titleLarge),
-                        Text("\$${(cart.totalPrice + AppConstants.deliveryFee).toStringAsFixed(2)}", style: theme.textTheme.titleLarge),
+                        Text("\${(cart.totalPrice + AppConstants.deliveryFee).toStringAsFixed(2)}", style: theme.textTheme.titleLarge),
                       ],
                     ),
                     const SizedBox(height: 16),
                     CustomButton(
                       text: localizations.proceedToCheckout,
                       onPressed: cart.items.isEmpty ? null : () {
+                        AnalyticsService.instance.logEvent('begin_checkout');
                         GoRouter.of(context).go('/checkout');
                       },
                       width: double.infinity,
@@ -138,7 +178,7 @@ class CartPage extends StatelessWidget {
 
                     const SizedBox(height: 8),
 
-                    Text("\$${item.product.price.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.tertiary)),
+                    Text("\${item.product.price.toStringAsFixed(2)}", style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.tertiary)),
 
                   ],
 
