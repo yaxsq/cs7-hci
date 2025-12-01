@@ -96,6 +96,18 @@ class AccountPage extends StatelessWidget {
               label: Text(localizations.trackOrder),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.secondary,
+                foregroundColor: theme.colorScheme.onPrimary,
+              ),
+              onPressed: () => GoRouter.of(context).go('/account/analytics'),
+              icon: const Icon(Icons.analytics),
+              label: const Text('Analytics'),
+            ),
+          ),
         ],
       ),
     );

@@ -44,6 +44,13 @@ class AnalyticsService with WidgetsBindingObserver {
     return Future.value('test-device-id');
   }
 
+  void logTap(TapDownDetails details) {
+    logEvent('tap', parameters: {
+      'x': details.globalPosition.dx,
+      'y': details.globalPosition.dy,
+    });
+  }
+
   void logEvent(String eventName, {Map<String, dynamic>? parameters}) {
     final event = AnalyticsEvent(
       eventName: eventName,

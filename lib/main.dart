@@ -35,30 +35,33 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AccessibilityProvider>(
       builder: (context, accessibilityProvider, child) {
-        return MaterialApp.router(
-          title: 'KraveMart',
-          theme: accessibilityProvider.highContrast && accessibilityProvider.largeFont
-              ? AppTheme.highContrastLargeFontTheme
-              : accessibilityProvider.highContrast
-                  ? AppTheme.highContrastTheme
-                  : accessibilityProvider.largeFont
-                      ? AppTheme.largeFontTheme
-                      : AppTheme.lightTheme,
-          routerConfig: router,
-          debugShowCheckedModeBanner: false,
-          locale: accessibilityProvider.locale,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en'), // English
-            Locale('ur'), // Urdu
-          ],
-          routeInformationParser: router.routeInformationParser,
-          routerDelegate: router.routerDelegate,
+        return GestureDetector(
+          onTapDown: (details) => AnalyticsService.instance.logTap(details),
+          child: MaterialApp.router(
+            title: 'KraveMart',
+            theme: accessibilityProvider.highContrast && accessibilityProvider.largeFont
+                ? AppTheme.highContrastLargeFontTheme
+                : accessibilityProvider.highContrast
+                    ? AppTheme.highContrastTheme
+                    : accessibilityProvider.largeFont
+                        ? AppTheme.largeFontTheme
+                        : AppTheme.lightTheme,
+            routerConfig: router,
+            debugShowCheckedModeBanner: false,
+            locale: accessibilityProvider.locale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'), // English
+              Locale('ur'), // Urdu
+            ],
+            routeInformationParser: router.routeInformationParser,
+            routerDelegate: router.routerDelegate,
+          ),
         );
       },
     );
