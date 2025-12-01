@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hci_app/src/core/analytics/database_service.dart';
 
@@ -45,9 +46,19 @@ class AnalyticsPage extends StatelessWidget {
         title: const Text('Analytics'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () => _exportToCsv(context),
-          child: const Text('Export to CSV'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => _exportToCsv(context),
+              child: const Text('Export to CSV'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => GoRouter.of(context).go('/account/analytics/heatmap'),
+              child: const Text('View Heatmap'),
+            ),
+          ],
         ),
       ),
     );

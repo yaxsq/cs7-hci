@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hci_app/main.dart';
 import 'package:hci_app/src/features/account/screens/account_page.dart';
+import 'package:hci_app/src/features/analytics/screens/heatmap_page.dart';
 import 'package:hci_app/src/features/analytics/screens/analytics_page.dart';
 import 'package:hci_app/src/features/account/screens/add_address_page.dart';
 import 'package:hci_app/src/features/cart/screens/cart_page.dart';
@@ -76,9 +77,14 @@ final GoRouter router = GoRouter(
                 builder: (context, state) => const AddAddressPage(),
               ),
               GoRoute(
-                path: 'analytics',
-                builder: (context, state) => const AnalyticsPage(),
-              ),
+                  path: 'analytics',
+                  builder: (context, state) => const AnalyticsPage(),
+                  routes: [
+                    GoRoute(
+                      path: 'heatmap',
+                      builder: (context, state) => const HeatmapPage(),
+                    ),
+                  ]),
             ]),
         GoRoute(
           path: '/search',
