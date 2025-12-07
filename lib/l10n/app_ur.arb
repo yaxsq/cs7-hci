@@ -99,5 +99,16 @@
     "productName_9": "سیب",
     "productDescription_9": "کرسپی سرخ سیب۔",
     "emptyCartMessage1": "آپ نے اپنی کارٹ میں کچھ بھی شامل نہیں کیا ہے!",
-    "emptyCartMessage2": "ہمارے پاس ایک بہت بڑا کیٹلاگ ہے، تو خود کو روکیں نہیں!"
+    "emptyCartMessage2": "ہمارے پاس ایک بہت بڑا کیٹلاگ ہے، تو خود کو روکیں نہیں!",
+    "logout": "لاگ آؤٹ",
+    "createAccountTitle": "اپنا اکاؤنٹ بنائیں",
+    "createAccountSubtitle": "آئیے آپ کو بغیر کسی رکاوٹ کے خریداری کے تجربے کے لیے تیار کرتے ہیں۔",
+    "fullNameHint": "پورا نام",
+    "nameValidator": "براہ کرم اپنا نام درج کریں",
+    "emailHint": "ای میل اڈریس",
+    "emailValidator": "براہ کرم اپنا ای میل درج کریں",
+    "phoneHint": "فون نمبر",
+    "phoneValidator": "براہ کرم اپنا فون نمبر درج کریں",
+    "addressHint": "ڈیلیوری کا پتہ",
+    "addressValidator": "براہ کرم اپنا پتہ درج کریں"
 }

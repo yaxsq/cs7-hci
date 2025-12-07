@@ -99,5 +99,16 @@
     "productName_9": "Apples",
     "productDescription_9": "Crisp red apples.",
     "emptyCartMessage1" : "Your cart is empty",
-    "emptyCartMessage2" : "Browse products and add them to your cart."
+    "emptyCartMessage2" : "Browse products and add them to your cart.",
+    "logout": "Logout",
+    "createAccountTitle": "Create Your Account",
+    "createAccountSubtitle": "Let's get you set up for a seamless shopping experience.",
+    "fullNameHint": "Full Name",
+    "nameValidator": "Please enter your name",
+    "emailHint": "Email Address",
+    "emailValidator": "Please enter your email",
+    "phoneHint": "Phone Number",
+    "phoneValidator": "Please enter your phone number",
+    "addressHint": "Delivery Address",
+    "addressValidator": "Please enter your address"
 }

@@ -30,9 +30,11 @@ class _AccountSetupPageState extends State<AccountSetupPage> {
 
   Future<void> _onContinue() async {
     if (_formKey.currentState!.validate()) {
-      // In a real app, you would save this data.
-      // For now, we just mark the setup as complete.
       final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userName', _nameController.text);
+      await prefs.setString('userEmail', _emailController.text);
+      await prefs.setString('userPhone', _phoneController.text);
+      await prefs.setString('userAddress', _addressController.text);
       await prefs.setBool('hasCompletedSetup', true);
 
       if (mounted) {
@@ -59,49 +61,49 @@ class _AccountSetupPageState extends State<AccountSetupPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "Create Your Account", // This should be localized
+                localizations.createAccountTitle,
                 style: theme.textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
               Text(
-                "Let's get you set up for a seamless shopping experience.", // This should be localized
+                localizations.createAccountSubtitle,
                 style: theme.textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
               CustomTextField(
                 controller: _nameController,
-                hintText: "Full Name",
+                hintText: localizations.fullNameHint,
                 prefixIcon: const Icon(Icons.person_outline),
                 validator: (value) =>
-                    value!.isEmpty ? "Please enter your name" : null,
+                    value!.isEmpty ? localizations.nameValidator : null,
               ),
               const SizedBox(height: 16),
               CustomTextField(
                 controller: _emailController,
-                hintText: "Email Address",
+                hintText: localizations.emailHint,
                 prefixIcon: const Icon(Icons.email_outlined),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) =>
-                    value!.isEmpty ? "Please enter your email" : null,
+                    value!.isEmpty ? localizations.emailValidator : null,
               ),
               const SizedBox(height: 16),
               CustomTextField(
                 controller: _phoneController,
-                hintText: "Phone Number",
+                hintText: localizations.phoneHint,
                 prefixIcon: const Icon(Icons.phone_outlined),
                 keyboardType: TextInputType.phone,
                 validator: (value) =>
-                    value!.isEmpty ? "Please enter your phone number" : null,
+                    value!.isEmpty ? localizations.phoneValidator : null,
               ),
               const SizedBox(height: 16),
               CustomTextField(
                 controller: _addressController,
-                hintText: "Delivery Address",
+                hintText: localizations.addressHint,
                 prefixIcon: const Icon(Icons.location_on_outlined),
                 validator: (value) =>
-                    value!.isEmpty ? "Please enter your address" : null,
+                    value!.isEmpty ? localizations.addressValidator : null,
               ),
               const SizedBox(height: 32),
               CustomButton(
