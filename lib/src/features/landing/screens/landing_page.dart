@@ -276,7 +276,7 @@ class _LandingPageState extends State<LandingPage> {
 
                                 Padding(
 
-                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
 
                                   child: Row(
 
@@ -480,7 +480,7 @@ class PromotionalBanner extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,

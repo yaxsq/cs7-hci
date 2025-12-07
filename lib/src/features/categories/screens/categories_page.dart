@@ -85,7 +85,7 @@ class CategoriesPage extends StatelessWidget {
                   return ProductCard(
                     product: filteredProducts[index],
                     onTap: () {
-                      GoRouter.of(context).go('/item/${filteredProducts[index].id}');
+                      GoRouter.of(context).push('/item/${filteredProducts[index].id}');
                     },
                   );
                 },

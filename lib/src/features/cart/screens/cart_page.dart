@@ -23,14 +23,36 @@ class CartPage extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: cart.items.length,
-                  itemBuilder: (context, index) {
-                    return _buildCartItem(context, cart.items[index]);
-                  },
+              if (cart.items.isEmpty)
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          localizations.emptyCartMessage1,
+                          style: theme.textTheme.titleLarge,
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          localizations.emptyCartMessage2,
+                          style: theme.textTheme.bodyMedium,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              else
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: cart.items.length,
+                    itemBuilder: (context, index) {
+                      return _buildCartItem(context, cart.items[index]);
+                    },
+                  ),
                 ),
-              ),
               // Order Summary
               Container(
                 padding: const EdgeInsets.all(16.0),

@@ -307,4 +307,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get productDescription_9 => 'Crisp red apples.';
+
+  @override
+  String get emptyCartMessage1 => 'Your cart is empty';
+
+  @override
+  String get emptyCartMessage2 => 'Browse products and add them to your cart.';
 }

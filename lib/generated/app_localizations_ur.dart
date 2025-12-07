@@ -307,4 +307,12 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get productDescription_9 => 'کرسپی سرخ سیب۔';
+
+  @override
+  String get emptyCartMessage1 =>
+      'آپ نے اپنی کارٹ میں کچھ بھی شامل نہیں کیا ہے!';
+
+  @override
+  String get emptyCartMessage2 =>
+      'ہمارے پاس ایک بہت بڑا کیٹلاگ ہے، تو خود کو روکیں نہیں!';
 }

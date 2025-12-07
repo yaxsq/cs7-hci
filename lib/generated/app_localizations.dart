@@ -685,6 +685,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Crisp red apples.'**
   String get productDescription_9;
+
+  /// No description provided for @emptyCartMessage1.
+  ///
+  /// In en, this message translates to:
+  /// **'Your cart is empty'**
+  String get emptyCartMessage1;
+
+  /// No description provided for @emptyCartMessage2.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse products and add them to your cart.'**
+  String get emptyCartMessage2;
 }
 
 class _AppLocalizationsDelegate

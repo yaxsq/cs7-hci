@@ -69,8 +69,13 @@ class _SearchPageState extends State<SearchPage> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back, color: theme.iconTheme.color),
               onPressed: () {
-                if (GoRouter.of(context).canPop()) {
-                  GoRouter.of(context).pop();
+                if (_searchResults.isNotEmpty) {
+                  _searchController.clear();
+                  setState(() {
+                    _searchResults = [];
+                  });
+                } else {
+                  GoRouter.of(context).go('/categories/All');
                 }
               },
             ),
@@ -117,7 +122,7 @@ class _SearchPageState extends State<SearchPage> {
                                 padding: const EdgeInsets.only(right: 16.0),
                                 child: ProductCard(
                                   product: product,
-                                  onTap: () => GoRouter.of(context).go('/item/${product.id}'),
+                                  onTap: () => GoRouter.of(context).push('/item/${product.id}'),
                                 ),
                               );
                             },
@@ -138,7 +143,7 @@ class _SearchPageState extends State<SearchPage> {
                         final product = _searchResults[index];
                         return ProductCard(
                           product: product,
-                          onTap: () => GoRouter.of(context).go('/item/${product.id}'),
+                          onTap: () => GoRouter.of(context).push('/item/${product.id}'),
                         );
                       },
                       childCount: _searchResults.length,
