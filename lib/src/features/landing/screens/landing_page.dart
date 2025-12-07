@@ -19,6 +19,23 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   final TextEditingController _searchController = TextEditingController();
   String _selectedCategory = 'All';
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    // Simulate network delay to fetch page content
+    await Future.delayed(const Duration(milliseconds: 800));
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -31,15 +48,17 @@ class _LandingPageState extends State<LandingPage> {
     final theme = Theme.of(context);
     final localizations = AppLocalizations.of(context)!;
     final accessibilityProvider = Provider.of<AccessibilityProvider>(context);
-    final List<Product> weeklyDeals = getDummyProducts(localizations).sublist(0, 4);
-    final List<Product> freshProduce = getDummyProducts(localizations).sublist(4, 7);
+    final List<Product> weeklyDeals =
+        getDummyProducts(localizations).sublist(0, 4);
+    final List<Product> freshProduce =
+        getDummyProducts(localizations).sublist(4, 7);
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             backgroundColor: Colors.transparent,
-            expandedHeight: 180, // Height of the top section (DELIVER TO + Search)
+            expandedHeight: 180,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 padding: const EdgeInsets.all(16.0),
@@ -48,14 +67,14 @@ class _LandingPageState extends State<LandingPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 32), // Status bar padding
+                      const SizedBox(height: 32),
                       Text(
                         localizations.deliverTo,
                         style: theme.textTheme.bodySmall,
                       ),
                       Row(
                         children: [
-                          Icon(Icons.location_on, size: 20),
+                          const Icon(Icons.location_on, size: 20),
                           const SizedBox(width: 8),
                           Flexible(
                             child: Text(
@@ -64,7 +83,7 @@ class _LandingPageState extends State<LandingPage> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Icon(Icons.keyboard_arrow_down, size: 20),
+                          const Icon(Icons.keyboard_arrow_down, size: 20),
                         ],
                       ),
                       const SizedBox(height: 16),
@@ -85,370 +104,193 @@ class _LandingPageState extends State<LandingPage> {
               ),
             ),
           ),
-
-          SliverToBoxAdapter(
-
-            child: Column(
-
-              crossAxisAlignment: CrossAxisAlignment.start,
-
-              children: [
-
-                
-
-                // Category Chips
-
-                                Padding(
-
-                                                                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-
-                                                                  child: SizedBox(
-
-                                                                    height: 40, // Height of the chips
-
-                                                                    child: ListView(
-
-                                                                      scrollDirection: Axis.horizontal,
-
-                                                                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                                                                      children: [
-
-                                                                        CategoryChip(
-
-                                                                          text: localizations.all,
-
-                                                                          icon: Icons.apps,
-
-                                                                          isSelected: _selectedCategory == 'All',
-
-                                                                          onPressed: () {
-
-                                                                            setState(() {
-
-                                                                              _selectedCategory = 'All';
-
-                                                                            });
-
-                                                                            GoRouter.of(context).go('/categories/All');
-
-                                                                          },
-
-                                                                        ),
-
-                                                                        const SizedBox(width: 8),
-
-                                                                        CategoryChip(
-
-                                                                          text: localizations.fruits,
-
-                                                                          icon: Icons.apple,
-
-                                                                          isSelected: _selectedCategory == 'Fruits',
-
-                                                                          onPressed: () {
-
-                                                                            setState(() {
-
-                                                                              _selectedCategory = 'Fruits';
-
-                                                                            });
-
-                                                                            GoRouter.of(context).go('/categories/Fruits');
-
-                                                                          },
-
-                                                                        ),
-
-                                                                        const SizedBox(width: 8),
-
-                                                                        CategoryChip(
-
-                                                                          text: localizations.dairy,
-
-                                                                          icon: Icons.water_drop,
-
-                                                                          isSelected: _selectedCategory == 'Dairy',
-
-                                                                          onPressed: () {
-
-                                                                            setState(() {
-
-                                                                              _selectedCategory = 'Dairy';
-
-                                                                            });
-
-                                                                            GoRouter.of(context).go('/categories/Dairy');
-
-                                                                          },
-
-                                                                        ),
-
-                                                                        const SizedBox(width: 8),
-
-                                                                        CategoryChip(
-
-                                                                          text: localizations.bakery,
-
-                                                                          icon: Icons.cake,
-
-                                                                          isSelected: _selectedCategory == 'Bakery',
-
-                                                                          onPressed: () {
-
-                                                                            setState(() {
-
-                                                                              _selectedCategory = 'Bakery';
-
-                                                                            });
-
-                                                                            GoRouter.of(context).go('/categories/Bakery');
-
-                                                                          },
-
-                                                                        ),
-
-                                                                        const SizedBox(width: 8),
-
-                                                                        CategoryChip(
-
-                                                                          text: localizations.vegetables,
-
-                                                                          icon: Icons.eco,
-
-                                                                          isSelected: _selectedCategory == 'Vegetables',
-
-                                                                          onPressed: () {
-
-                                                                            setState(() {
-
-                                                                              _selectedCategory = 'Vegetables';
-
-                                                                            });
-
-                                                                            GoRouter.of(context).go('/categories/Vegetables');
-
-                                                                          },
-
-                                                                        ),
-
-                                                                        const SizedBox(width: 8),
-
-                                                                        CategoryChip(
-
-                                                                          text: localizations.meat,
-
-                                                                          icon: Icons.fastfood,
-
-                                                                          isSelected: _selectedCategory == 'Meat',
-
-                                                                          onPressed: () {
-
-                                                                            setState(() {
-
-                                                                              _selectedCategory = 'Meat';
-
-                                                                            });
-
-                                                                            GoRouter.of(context).go('/categories/Meat');
-
-                                                                          },
-
-                                                                        ),
-
-                                                                      ],
-
-                                                                    ),
-
-                                                                  ),
-
-                                                                ),
-
-                
-
-                // Promotional Banner
-
-                const PromotionalBanner(),
-
-                                const SizedBox(height: 24),
-
-                                // Weekly Deals Section
-
-                                Padding(
-
-                                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-
-                                  child: Row(
-
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                                    children: [
-
-                                      Text(
-
-                                        localizations.weeklyDeals,
-
-                                        style: theme.textTheme.headlineSmall,
-
-                                      ),
-
-                                      TextButton(
-
-                                        onPressed: () => GoRouter.of(context).go('/categories/Weekly Deals'),
-
-                                        child: Text(
-
-                                          localizations.seeAll,
-
-                                          style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.tertiary),
-
-                                        ),
-
-                                      ),
-
-                                    ],
-
-                                  ),
-
-                                ),
-
-                                const SizedBox(height: 16),
-
-                                                                SizedBox(
-
-                                                                  height: accessibilityProvider.largeFont ? 300 : 268,
-
-                                                                  child: ListView.builder(
-
-                                                                    scrollDirection: Axis.horizontal,
-
-                                                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                                                                    itemCount: weeklyDeals.length,
-
-                                                                    itemBuilder: (context, index) {
-
-                                                                      final product = weeklyDeals[index];
-
-                                                                      return Padding(
-
-                                                                        padding: const EdgeInsets.only(right: 16.0),
-
-                                                                        child: ProductCard(
-
-                                                                          product: product,
-
-                                                                          onTap: () => GoRouter.of(context).go('/item/${product.id}'),
-
-                                                                        ),
-
-                                                                      );
-
-                                                                    },
-
-                                                                  ),
-
-                                                                ),
-
-                                const SizedBox(height: 24),
-
-                                // Fresh Produce Section
-
-                                Padding(
-
-                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                                  child: Row(
-
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                                    children: [
-
-                                      Text(
-
-                                        localizations.freshProduce,
-
-                                        style: theme.textTheme.headlineSmall,
-
-                                      ),
-
-                                      TextButton(
-
-                                        onPressed: () => GoRouter.of(context).go('/categories/Fresh Produce'),
-
-                                        child: Text(
-
-                                          localizations.seeAll,
-
-                                          style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.tertiary),
-
-                                        ),
-
-                                      ),
-
-                                    ],
-
-                                  ),
-
-                                ),
-
-                const SizedBox(height: 16),
-
-                                SizedBox(
-
-                                  height: accessibilityProvider.largeFont ? 300 : 268,
-
-                                  child: ListView.builder(
-
-                                    scrollDirection: Axis.horizontal,
-
-                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                                    itemCount: freshProduce.length,
-
-                                    itemBuilder: (context, index) {
-
-                                      final product = freshProduce[index];
-
-                                      return Padding(
-
-                                        padding: const EdgeInsets.only(right: 16.0),
-
-                                        child: ProductCard(
-
-                                          product: product,
-
-                                          onTap: () => GoRouter.of(context).go('/item/${product.id}'),
-
-                                        ),
-
-                                      );
-
-                                    },
-
-                                  ),
-
-                                ),
-
-                const SizedBox(height: 24),
-
-              ],
-
+          if (_isLoading)
+            SliverFillRemaining(
+              child: Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      theme.colorScheme.primary),
+                ),
+              ),
+            )
+          else
+            SliverToBoxAdapter(
+              child: AnimatedOpacity(
+                opacity: _isLoading ? 0.0 : 1.0,
+                duration: const Duration(milliseconds: 400),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: SizedBox(
+                        height: 40,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 16.0),
+                          children: [
+                            CategoryChip(
+                              text: localizations.all,
+                              icon: Icons.apps,
+                              isSelected: _selectedCategory == 'All',
+                              onPressed: () {
+                                setState(() => _selectedCategory = 'All');
+                                GoRouter.of(context).go('/categories/All');
+                              },
+                            ),
+                            const SizedBox(width: 8),
+                            CategoryChip(
+                              text: localizations.fruits,
+                              icon: Icons.apple,
+                              isSelected: _selectedCategory == 'Fruits',
+                              onPressed: () {
+                                setState(() => _selectedCategory = 'Fruits');
+                                GoRouter.of(context).go('/categories/Fruits');
+                              },
+                            ),
+                            const SizedBox(width: 8),
+                            CategoryChip(
+                              text: localizations.dairy,
+                              icon: Icons.water_drop,
+                              isSelected: _selectedCategory == 'Dairy',
+                              onPressed: () {
+                                setState(() => _selectedCategory = 'Dairy');
+                                GoRouter.of(context).go('/categories/Dairy');
+                              },
+                            ),
+                            const SizedBox(width: 8),
+                            CategoryChip(
+                              text: localizations.bakery,
+                              icon: Icons.cake,
+                              isSelected: _selectedCategory == 'Bakery',
+                              onPressed: () {
+                                setState(() => _selectedCategory = 'Bakery');
+                                GoRouter.of(context).go('/categories/Bakery');
+                              },
+                            ),
+                            const SizedBox(width: 8),
+                            CategoryChip(
+                              text: localizations.vegetables,
+                              icon: Icons.eco,
+                              isSelected: _selectedCategory == 'Vegetables',
+                              onPressed: () {
+                                setState(() => _selectedCategory = 'Vegetables');
+                                GoRouter.of(context)
+                                    .go('/categories/Vegetables');
+                              },
+                            ),
+                            const SizedBox(width: 8),
+                            CategoryChip(
+                              text: localizations.meat,
+                              icon: Icons.fastfood,
+                              isSelected: _selectedCategory == 'Meat',
+                              onPressed: () {
+                                setState(() => _selectedCategory = 'Meat');
+                                GoRouter.of(context).go('/categories/Meat');
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const PromotionalBanner(),
+                    const SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            localizations.weeklyDeals,
+                            style: theme.textTheme.headlineSmall,
+                          ),
+                          TextButton(
+                            onPressed: () => GoRouter.of(context)
+                                .go('/categories/Weekly Deals'),
+                            child: Text(
+                              localizations.seeAll,
+                              style: theme.textTheme.titleSmall
+                                  ?.copyWith(color: theme.colorScheme.tertiary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: accessibilityProvider.largeFont ? 300 : 268,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 16.0),
+                        itemCount: weeklyDeals.length,
+                        itemBuilder: (context, index) {
+                          final product = weeklyDeals[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: ProductCard(
+                              product: product,
+                              onTap: () =>
+                                  GoRouter.of(context).go('/item/${product.id}'),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            localizations.freshProduce,
+                            style: theme.textTheme.headlineSmall,
+                          ),
+                          TextButton(
+                            onPressed: () => GoRouter.of(context)
+                                .go('/categories/Fresh Produce'),
+                            child: Text(
+                              localizations.seeAll,
+                              style: theme.textTheme.titleSmall
+                                  ?.copyWith(color: theme.colorScheme.tertiary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: accessibilityProvider.largeFont ? 300 : 268,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 16.0),
+                        itemCount: freshProduce.length,
+                        itemBuilder: (context, index) {
+                          final product = freshProduce[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: ProductCard(
+                              product: product,
+                              onTap: () =>
+                                  GoRouter.of(context).go('/item/${product.id}'),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                ),
+              ),
             ),
-
-          ),
-
         ],
-
       ),
-
     );
-
   }
-
 }
-
-
 
 class PromotionalBanner extends StatelessWidget {
   const PromotionalBanner({super.key});
@@ -463,7 +305,8 @@ class PromotionalBanner extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
         image: const DecorationImage(
-          image: NetworkImage("https://www.figma.com/api/mcp/asset/9c7b7061-216a-4d7c-a399-24c248b8bd49"),
+          image: NetworkImage(
+              "https://www.figma.com/api/mcp/asset/9c7b7061-216a-4d7c-a399-24c248b8bd49"),
           fit: BoxFit.cover,
         ),
       ),
@@ -487,12 +330,14 @@ class PromotionalBanner extends StatelessWidget {
             children: [
               Text(
                 localizations.summerBBQ,
-                style: theme.textTheme.headlineSmall?.copyWith(color: Colors.white),
+                style:
+                    theme.textTheme.headlineSmall?.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 4),
               Text(
                 localizations.grillingSeason,
-                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white.withOpacity(0.9)),
+                style: theme.textTheme.bodyMedium
+                    ?.copyWith(color: Colors.white.withOpacity(0.9)),
               ),
             ],
           ),

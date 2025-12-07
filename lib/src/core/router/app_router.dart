@@ -13,6 +13,7 @@ import 'package:hci_app/src/features/search/screens/search_page.dart';
 import 'package:hci_app/src/features/shell/screens/shell_page.dart';
 import 'package:hci_app/src/features/splash/screens/splash_page.dart';
 import 'package:hci_app/src/features/accessibility/screens/accessibility_page.dart';
+import 'package:hci_app/src/core/router/fade_transition_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -23,26 +24,38 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/splash',
-      builder: (context, state) => const SplashPage(),
+      pageBuilder: (context, state) => FadeTransitionPage(
+        key: state.pageKey,
+        child: const SplashPage(),
+      ),
     ),
     GoRoute(
       path: '/accessibility',
-      builder: (context, state) => const AccessibilityPage(),
+      pageBuilder: (context, state) => FadeTransitionPage(
+        key: state.pageKey,
+        child: const AccessibilityPage(),
+      ),
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) {
-        return ShellPage(child: child, state: state);
-      },
+      pageBuilder: (context, state, child) => FadeTransitionPage(
+        key: state.pageKey,
+        child: ShellPage(child: child, state: state),
+      ),
       routes: [
         GoRoute(
           path: '/',
-          builder: (context, state) => const LandingPage(),
+          pageBuilder: (context, state) => FadeTransitionPage(
+            key: state.pageKey,
+            child: const LandingPage(),
+          ),
           routes: [
             GoRoute(
               path: 'item/:id',
-              builder: (context, state) =>
-                  ItemListingPage(itemId: state.pathParameters['id']!),
+              pageBuilder: (context, state) => FadeTransitionPage(
+                key: state.pageKey,
+                child: ItemListingPage(itemId: state.pathParameters['id']!),
+              ),
             ),
           ],
         ),
@@ -52,38 +65,62 @@ final GoRouter router = GoRouter(
         ),
         GoRoute(
           path: '/categories/:category',
-          builder: (context, state) => CategoriesPage(
-            category: state.pathParameters['category']!,
+          pageBuilder: (context, state) => FadeTransitionPage(
+            key: state.pageKey,
+            child: CategoriesPage(
+              category: state.pathParameters['category']!,
+            ),
           ),
         ),
         GoRoute(
           path: '/cart',
-          builder: (context, state) => const CartPage(),
+          pageBuilder: (context, state) => FadeTransitionPage(
+            key: state.pageKey,
+            child: const CartPage(),
+          ),
         ),
         GoRoute(
             path: '/account',
-            builder: (context, state) => const AccountPage(),
+            pageBuilder: (context, state) => FadeTransitionPage(
+                  key: state.pageKey,
+                  child: const AccountPage(),
+                ),
             routes: [
               GoRoute(
                 path: 'order-history',
-                builder: (context, state) => const OrderHistoryPage(),
+                pageBuilder: (context, state) => FadeTransitionPage(
+                  key: state.pageKey,
+                  child: const OrderHistoryPage(),
+                ),
               ),
               GoRoute(
                 path: 'add-address',
-                builder: (context, state) => const AddAddressPage(),
+                pageBuilder: (context, state) => FadeTransitionPage(
+                  key: state.pageKey,
+                  child: const AddAddressPage(),
+                ),
               ),
             ]),
         GoRoute(
           path: '/search',
-          builder: (context, state) => const SearchPage(),
+          pageBuilder: (context, state) => FadeTransitionPage(
+            key: state.pageKey,
+            child: const SearchPage(),
+          ),
         ),
         GoRoute(
           path: '/checkout',
-          builder: (context, state) => const CheckoutPage(),
+          pageBuilder: (context, state) => FadeTransitionPage(
+            key: state.pageKey,
+            child: const CheckoutPage(),
+          ),
         ),
         GoRoute(
           path: '/delivery-tracking',
-          builder: (context, state) => const DeliveryTrackingPage(),
+          pageBuilder: (context, state) => FadeTransitionPage(
+            key: state.pageKey,
+            child: const DeliveryTrackingPage(),
+          ),
         ),
       ],
     ),
