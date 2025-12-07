@@ -261,10 +261,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get productDescription_1 => 'A dozen of our finest organic eggs.';
 
   @override
-  String get productName_2 => 'Sourdough Bread';
+  String get productName_2 => 'Bread';
 
   @override
-  String get productDescription_2 => 'Freshly baked sourdough bread.';
+  String get productDescription_2 => 'Freshly baked bread.';
 
   @override
   String get productName_3 => 'Organic Milk';

@@ -593,13 +593,13 @@ abstract class AppLocalizations {
   /// No description provided for @productName_2.
   ///
   /// In en, this message translates to:
-  /// **'Sourdough Bread'**
+  /// **'Bread'**
   String get productName_2;
 
   /// No description provided for @productDescription_2.
   ///
   /// In en, this message translates to:
-  /// **'Freshly baked sourdough bread.'**
+  /// **'Freshly baked bread.'**
   String get productDescription_2;
 
   /// No description provided for @productName_3.

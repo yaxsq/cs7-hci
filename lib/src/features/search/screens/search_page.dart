@@ -4,6 +4,8 @@ import 'package:hci_app/src/core/widgets/custom_text_field.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
 import 'package:hci_app/src/features/models/dummy_products.dart';
+import 'package:hci_app/src/features/accessibility/accessibility_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:hci_app/generated/app_localizations.dart';
 
 class SearchPage extends StatefulWidget {
@@ -35,6 +37,11 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final localizations = AppLocalizations.of(context)!;
+    final accessibilityProvider = Provider.of<AccessibilityProvider>(context);
+    final isLargeFont = accessibilityProvider.largeFont;
+    final cardWidth = isLargeFont ? 200.0 : 160.0;
+    final cardHeight = isLargeFont ? 300.0 : 268.0;
+    final aspectRatio = cardWidth / cardHeight;
     final List<String> _recentSearches = [localizations.organicMilk, localizations.freshBerries, localizations.cheddarCheese]; // Placeholder
 
     return Scaffold(
@@ -100,7 +107,7 @@ class _SearchPageState extends State<SearchPage> {
                         const SizedBox(height: 16),
                         // Placeholder for popular items, could be a ListView.builder of ProductCards
                         SizedBox(
-                          height: 268, // Height of the product cards
+                          height: accessibilityProvider.largeFont ? 300 : 268,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: getDummyProducts(localizations).length,
@@ -120,11 +127,11 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   )
                 : SliverGrid(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 16.0,
                       crossAxisSpacing: 16.0,
-                      childAspectRatio: 160 / 268, // width / height
+                      childAspectRatio: aspectRatio,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {

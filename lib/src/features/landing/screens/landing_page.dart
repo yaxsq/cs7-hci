@@ -69,7 +69,7 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                       const SizedBox(height: 16),
                       GestureDetector(
-                        onTap: () => GoRouter.of(context).go('/search'),
+                        onTap: () => GoRouter.of(context).push('/search'),
                         child: AbsorbPointer(
                           child: CustomTextField(
                             controller: _searchController,

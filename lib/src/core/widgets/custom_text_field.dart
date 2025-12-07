@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:hci_app/src/features/accessibility/accessibility_provider.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
@@ -29,6 +31,9 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final accessibilityProvider = Provider.of<AccessibilityProvider>(context);
+    final isLargeFont = accessibilityProvider.largeFont;
+    final verticalPadding = isLargeFont ? 24.0 : 18.5;
 
     return Semantics(
       textField: true,
@@ -58,7 +63,7 @@ class CustomTextField extends StatelessWidget {
                   hintText: hintText,
                   hintStyle: theme.textTheme.bodyMedium?.copyWith(color: hintColor ?? theme.hintColor),
                   border: InputBorder.none, // Remove default underline
-                  contentPadding: const EdgeInsets.symmetric(vertical: 18.5),
+                  contentPadding: EdgeInsets.symmetric(vertical: verticalPadding),
                   suffixIcon: suffixIcon,
                 ),
               ),

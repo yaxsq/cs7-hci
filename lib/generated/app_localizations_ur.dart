@@ -261,10 +261,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String get productDescription_1 => 'ہمارے بہترین نامیاتی انڈوں کا ایک درجن۔';
 
   @override
-  String get productName_2 => 'ساور ڈو روٹی';
+  String get productName_2 => 'روٹی';
 
   @override
-  String get productDescription_2 => 'تازہ پکی ہوئی ساور ڈو روٹی۔';
+  String get productDescription_2 => 'تازہ پکی ہوئی روٹی۔';
 
   @override
   String get productName_3 => 'نامیاتی دودھ';
