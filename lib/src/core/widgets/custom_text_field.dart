@@ -13,6 +13,8 @@ class CustomTextField extends StatelessWidget {
   final Color? fillColor;
   final double? fontSize;
   final Color? hintColor;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
@@ -26,6 +28,8 @@ class CustomTextField extends StatelessWidget {
     this.fillColor,
     this.fontSize,
     this.hintColor,
+    this.keyboardType,
+    this.validator,
   });
 
   @override
@@ -51,18 +55,20 @@ class CustomTextField extends StatelessWidget {
                 child: prefixIcon,
               ),
             Expanded(
-              child: TextField(
+              child: TextFormField(
                 controller: controller,
                 onChanged: onChanged,
-                onSubmitted: (value) {
-                  FocusScope.of(context).unfocus(); // Dismiss keyboard on submit
+                onFieldSubmitted: (value) {
+                  FocusScope.of(context).unfocus();
                   onSubmitted?.call(value);
                 },
                 style: theme.textTheme.bodyMedium,
+                keyboardType: keyboardType,
+                validator: validator,
                 decoration: InputDecoration(
                   hintText: hintText,
                   hintStyle: theme.textTheme.bodyMedium?.copyWith(color: hintColor ?? theme.hintColor),
-                  border: InputBorder.none, // Remove default underline
+                  border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: verticalPadding),
                   suffixIcon: suffixIcon,
                 ),

@@ -315,4 +315,7 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get emptyCartMessage2 =>
       'ہمارے پاس ایک بہت بڑا کیٹلاگ ہے، تو خود کو روکیں نہیں!';
+
+  @override
+  String get logout => 'لاگ آؤٹ';
 }

@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hci_app/src/core/router/app_router.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hci_app/src/core/router/app_router.dart' as app_router;
 import 'package:hci_app/src/core/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/order_history_model.dart';
 import 'package:hci_app/src/features/accessibility/accessibility_provider.dart';
 import 'package:hci_app/generated/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final bool hasCompletedSetup = prefs.getBool('hasCompletedSetup') ?? false;
+
   runApp(
     MultiProvider(
       providers: [
@@ -16,16 +22,24 @@ void main() {
         ChangeNotifierProvider(create: (context) => AccessibilityProvider()),
         ChangeNotifierProvider(create: (context) => OrderHistoryModel()),
       ],
-      child: const MyApp(),
+      child: MyApp(hasCompletedSetup: hasCompletedSetup),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.hasCompletedSetup});
+
+  final bool hasCompletedSetup;
 
   @override
   Widget build(BuildContext context) {
+    final router = GoRouter(
+      initialLocation: hasCompletedSetup ? '/splash' : '/accessibility',
+      navigatorKey: app_router.rootNavigatorKey,
+      routes: app_router.routes,
+    );
+
     return Consumer<AccessibilityProvider>(
       builder: (context, accessibilityProvider, child) {
         return MaterialApp.router(

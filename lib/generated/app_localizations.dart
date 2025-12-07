@@ -697,6 +697,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Browse products and add them to your cart.'**
   String get emptyCartMessage2;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
 }
 
 class _AppLocalizationsDelegate

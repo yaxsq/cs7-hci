@@ -313,4 +313,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emptyCartMessage2 => 'Browse products and add them to your cart.';
+
+  @override
+  String get logout => 'Logout';
 }
