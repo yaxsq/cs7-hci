@@ -5,6 +5,8 @@ import 'package:hci_app/src/core/widgets/category_chip.dart';
 import 'package:hci_app/src/core/widgets/product_card.dart';
 import 'package:hci_app/src/features/models/dummy_products.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
+import 'package:provider/provider.dart';
+import 'package:hci_app/src/features/accessibility/accessibility_provider.dart';
 import 'package:hci_app/generated/app_localizations.dart';
 
 class LandingPage extends StatefulWidget {
@@ -28,6 +30,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final localizations = AppLocalizations.of(context)!;
+    final accessibilityProvider = Provider.of<AccessibilityProvider>(context);
     final List<Product> weeklyDeals = getDummyProducts(localizations).sublist(0, 4);
     final List<Product> freshProduce = getDummyProducts(localizations).sublist(4, 7);
 
@@ -72,6 +75,7 @@ class _LandingPageState extends State<LandingPage> {
                             controller: _searchController,
                             hintText: localizations.searchHint,
                             prefixIcon: const Icon(Icons.search),
+                            suffixIcon: const Icon(Icons.mic),
                           ),
                         ),
                       ),
@@ -310,41 +314,41 @@ class _LandingPageState extends State<LandingPage> {
 
                                 const SizedBox(height: 16),
 
-                                SizedBox(
+                                                                SizedBox(
 
-                                  height: 268, // Height of the product cards
+                                                                  height: accessibilityProvider.largeFont ? 300 : 268,
 
-                                  child: ListView.builder(
+                                                                  child: ListView.builder(
 
-                                    scrollDirection: Axis.horizontal,
+                                                                    scrollDirection: Axis.horizontal,
 
-                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
 
-                                    itemCount: weeklyDeals.length,
+                                                                    itemCount: weeklyDeals.length,
 
-                                    itemBuilder: (context, index) {
+                                                                    itemBuilder: (context, index) {
 
-                                      final product = weeklyDeals[index];
+                                                                      final product = weeklyDeals[index];
 
-                                      return Padding(
+                                                                      return Padding(
 
-                                        padding: const EdgeInsets.only(right: 16.0),
+                                                                        padding: const EdgeInsets.only(right: 16.0),
 
-                                        child: ProductCard(
+                                                                        child: ProductCard(
 
-                                          product: product,
+                                                                          product: product,
 
-                                          onTap: () => GoRouter.of(context).go('/item/${product.id}'),
+                                                                          onTap: () => GoRouter.of(context).go('/item/${product.id}'),
 
-                                        ),
+                                                                        ),
 
-                                      );
+                                                                      );
 
-                                    },
+                                                                    },
 
-                                  ),
+                                                                  ),
 
-                                ),
+                                                                ),
 
                                 const SizedBox(height: 24),
 
@@ -390,41 +394,41 @@ class _LandingPageState extends State<LandingPage> {
 
                 const SizedBox(height: 16),
 
-                SizedBox(
+                                SizedBox(
 
-                  height: 268, // Height of the product cards
+                                  height: accessibilityProvider.largeFont ? 300 : 268,
 
-                  child: ListView.builder(
+                                  child: ListView.builder(
 
-                    scrollDirection: Axis.horizontal,
+                                    scrollDirection: Axis.horizontal,
 
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
 
-                    itemCount: freshProduce.length,
+                                    itemCount: freshProduce.length,
 
-                    itemBuilder: (context, index) {
+                                    itemBuilder: (context, index) {
 
-                      final product = freshProduce[index];
+                                      final product = freshProduce[index];
 
-                      return Padding(
+                                      return Padding(
 
-                        padding: const EdgeInsets.only(right: 16.0),
+                                        padding: const EdgeInsets.only(right: 16.0),
 
-                        child: ProductCard(
+                                        child: ProductCard(
 
-                          product: product,
+                                          product: product,
 
-                          onTap: () => GoRouter.of(context).go('/item/${product.id}'),
+                                          onTap: () => GoRouter.of(context).go('/item/${product.id}'),
 
-                        ),
+                                        ),
 
-                      );
+                                      );
 
-                    },
+                                    },
 
-                  ),
+                                  ),
 
-                ),
+                                ),
 
                 const SizedBox(height: 24),
 

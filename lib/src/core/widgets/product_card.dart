@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/cart_item_model.dart';
 import 'package:hci_app/src/features/models/product_model.dart';
+import 'package:hci_app/src/features/accessibility/accessibility_provider.dart';
 import 'package:hci_app/generated/app_localizations.dart';
 
 class ProductCard extends StatelessWidget {
@@ -21,6 +22,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final localizations = AppLocalizations.of(context)!;
+    final accessibilityProvider = Provider.of<AccessibilityProvider>(context);
 
     return Semantics(
       label: '${product.name}, \$${product.price.toStringAsFixed(2)}',
@@ -28,7 +30,7 @@ class ProductCard extends StatelessWidget {
         onTap: onTap,
         child: Card(
           child: SizedBox(
-            width: 160, // Fixed width based on Figma
+            width: accessibilityProvider.largeFont ? 200 : 160,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -72,8 +74,7 @@ class ProductCard extends StatelessWidget {
                               Text(
                                 product.name,
                                 style: theme.textTheme.titleMedium,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                                // Removed maxLines and overflow to allow wrapping
                               ),
                               const SizedBox(height: 4),
                               Row(

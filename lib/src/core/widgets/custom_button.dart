@@ -44,9 +44,9 @@ class CustomButton extends StatelessWidget {
               borderRadius: borderRadius ?? BorderRadius.circular(6.0), // Default 6px from Figma
             ),
             padding: padding,
-            textStyle: TextStyle(
-              fontSize: fontSize ?? 14, // Default 14px from Figma
-              fontWeight: fontWeight ?? FontWeight.bold, // Default bold from Figma
+            textStyle: (theme.textTheme.labelLarge ?? const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)).copyWith(
+              fontSize: fontSize,
+              fontWeight: fontWeight,
             ),
           ),
           child: Text(text),

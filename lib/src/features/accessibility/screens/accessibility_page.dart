@@ -46,7 +46,7 @@ class AccessibilityPage extends StatelessWidget {
               activeColor: theme.colorScheme.tertiary,
             ),
             SwitchListTile(
-              title: Text(localizations.urdu, style: theme.textTheme.titleMedium),
+              title: Text('اردو', style: theme.textTheme.titleMedium), // Changed here
               value: accessibilityProvider.isUrdu,
               onChanged: (value) {
                 accessibilityProvider.toggleUrdu();
