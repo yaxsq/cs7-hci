@@ -60,7 +60,7 @@ class AccessibilityPage extends StatelessWidget {
                 foregroundColor: theme.colorScheme.onPrimary,
               ),
               onPressed: () {
-                GoRouter.of(context).go('/');
+                GoRouter.of(context).go('/account-setup');
               },
               child: Text(localizations.continueButton),
             ),

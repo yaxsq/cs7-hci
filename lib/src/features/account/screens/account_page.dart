@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hci_app/src/features/delivery_tracking/screens/delivery_tracking_page.dart';
 import 'package:hci_app/generated/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -96,6 +97,22 @@ class AccountPage extends StatelessWidget {
               label: Text(localizations.trackOrder),
             ),
           ),
+          const SizedBox(height: 20),
+          TextButton.icon(
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setBool('hasCompletedSetup', false);
+              if (context.mounted) {
+                context.go('/account-setup');
+              }
+            },
+            icon: const Icon(Icons.logout),
+            label: const Text("Logout (Dev Only)"), // Should be localized
+            style: TextButton.styleFrom(
+              foregroundColor: theme.colorScheme.error,
+            ),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
