@@ -213,7 +213,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deliveryAddressContent =>
-      'Jane Doe\\n2464 Royal Ln. Mesa, New Jersey 45463';
+      'Jane Doe\n2464 Royal Ln. Mesa, New Jersey 45463';
 
   @override
   String get emailTitle => 'Email';
@@ -316,4 +316,62 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get createAccountTitle => 'Create Your Account';
+
+  @override
+  String get createAccountSubtitle =>
+      'Let\'s get you set up for a seamless shopping experience.';
+
+  @override
+  String get fullNameHint => 'Full Name';
+
+  @override
+  String get nameValidator => 'Please enter your name';
+
+  @override
+  String get emailHint => 'Email Address';
+
+  @override
+  String get emailValidator => 'Please enter your email';
+
+  @override
+  String get phoneHint => 'Phone Number';
+
+  @override
+  String get phoneValidator => 'Please enter your phone number';
+
+  @override
+  String get addressHint => 'Delivery Address';
+
+  @override
+  String get addressValidator => 'Please enter your address';
+
+  @override
+  String get addVoucher => 'Add Voucher';
+
+  @override
+  String get voucher => 'Voucher';
+
+  @override
+  String get enterVoucherCode => 'Enter voucher code';
+
+  @override
+  String get apply => 'Apply';
+
+  @override
+  String get availableVouchers => 'Available Vouchers';
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String get voucherApplied => 'Voucher Applied';
+
+  @override
+  String get invalidVoucher => 'Invalid voucher code';
+
+  @override
+  String get voucherDiscount => 'Voucher Discount';
 }

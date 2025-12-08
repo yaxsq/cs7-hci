@@ -318,4 +318,62 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get logout => 'لاگ آؤٹ';
+
+  @override
+  String get createAccountTitle => 'اپنا اکاؤنٹ بنائیں';
+
+  @override
+  String get createAccountSubtitle =>
+      'آئیے آپ کو بغیر کسی رکاوٹ کے خریداری کے تجربے کے لیے تیار کرتے ہیں۔';
+
+  @override
+  String get fullNameHint => 'پورا نام';
+
+  @override
+  String get nameValidator => 'براہ کرم اپنا نام درج کریں';
+
+  @override
+  String get emailHint => 'ای میل اڈریس';
+
+  @override
+  String get emailValidator => 'براہ کرم اپنا ای میل درج کریں';
+
+  @override
+  String get phoneHint => 'فون نمبر';
+
+  @override
+  String get phoneValidator => 'براہ کرم اپنا فون نمبر درج کریں';
+
+  @override
+  String get addressHint => 'ڈیلیوری کا پتہ';
+
+  @override
+  String get addressValidator => 'براہ کرم اپنا پتہ درج کریں';
+
+  @override
+  String get addVoucher => 'Add Voucher';
+
+  @override
+  String get voucher => 'Voucher';
+
+  @override
+  String get enterVoucherCode => 'Enter voucher code';
+
+  @override
+  String get apply => 'Apply';
+
+  @override
+  String get availableVouchers => 'Available Vouchers';
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String get voucherApplied => 'Voucher Applied';
+
+  @override
+  String get invalidVoucher => 'Invalid voucher code';
+
+  @override
+  String get voucherDiscount => 'Voucher Discount';
 }

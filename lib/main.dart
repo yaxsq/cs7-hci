@@ -6,6 +6,7 @@ import 'package:hci_app/src/core/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/models/cart_model.dart';
 import 'package:hci_app/src/features/models/order_history_model.dart';
+import 'package:hci_app/src/features/models/voucher_model.dart';
 import 'package:hci_app/src/features/accessibility/accessibility_provider.dart';
 import 'package:hci_app/generated/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +22,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => CartModel()),
         ChangeNotifierProvider(create: (context) => AccessibilityProvider()),
         ChangeNotifierProvider(create: (context) => OrderHistoryModel()),
+        ChangeNotifierProvider(create: (context) => VoucherModel()),
       ],
       child: MyApp(hasCompletedSetup: hasCompletedSetup),
     ),

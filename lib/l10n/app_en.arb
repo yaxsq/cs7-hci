@@ -66,7 +66,7 @@
     "userName": "Syed Rafay Ahmed",
     "orderHistory": "Order History",
     "deliveryAddressTitle": "Delivery Address",
-    "deliveryAddressContent": "Jane Doe\\n2464 Royal Ln. Mesa, New Jersey 45463",
+    "deliveryAddressContent": "Jane Doe\n2464 Royal Ln. Mesa, New Jersey 45463",
     "emailTitle": "Email",
     "emailContent": "syedrafayahmeds@gmail.com",
     "phoneNumberTitle": "Phone Number",
@@ -110,5 +110,14 @@
     "phoneHint": "Phone Number",
     "phoneValidator": "Please enter your phone number",
     "addressHint": "Delivery Address",
-    "addressValidator": "Please enter your address"
+    "addressValidator": "Please enter your address",
+    "addVoucher": "Add Voucher",
+    "voucher": "Voucher",
+    "enterVoucherCode": "Enter voucher code",
+    "apply": "Apply",
+    "availableVouchers": "Available Vouchers",
+    "remove": "Remove",
+    "voucherApplied": "Voucher Applied",
+    "invalidVoucher": "Invalid voucher code",
+    "voucherDiscount": "Voucher Discount"
 }

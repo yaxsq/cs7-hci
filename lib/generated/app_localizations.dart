@@ -497,7 +497,7 @@ abstract class AppLocalizations {
   /// No description provided for @deliveryAddressContent.
   ///
   /// In en, this message translates to:
-  /// **'Jane Doe\\n2464 Royal Ln. Mesa, New Jersey 45463'**
+  /// **'Jane Doe\n2464 Royal Ln. Mesa, New Jersey 45463'**
   String get deliveryAddressContent;
 
   /// No description provided for @emailTitle.
@@ -703,6 +703,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// No description provided for @createAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Your Account'**
+  String get createAccountTitle;
+
+  /// No description provided for @createAccountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s get you set up for a seamless shopping experience.'**
+  String get createAccountSubtitle;
+
+  /// No description provided for @fullNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullNameHint;
+
+  /// No description provided for @nameValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get nameValidator;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get emailHint;
+
+  /// No description provided for @emailValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get emailValidator;
+
+  /// No description provided for @phoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneHint;
+
+  /// No description provided for @phoneValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your phone number'**
+  String get phoneValidator;
+
+  /// No description provided for @addressHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery Address'**
+  String get addressHint;
+
+  /// No description provided for @addressValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your address'**
+  String get addressValidator;
+
+  /// No description provided for @addVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Voucher'**
+  String get addVoucher;
+
+  /// No description provided for @voucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher'**
+  String get voucher;
+
+  /// No description provided for @enterVoucherCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter voucher code'**
+  String get enterVoucherCode;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// No description provided for @availableVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Available Vouchers'**
+  String get availableVouchers;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @voucherApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Applied'**
+  String get voucherApplied;
+
+  /// No description provided for @invalidVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid voucher code'**
+  String get invalidVoucher;
+
+  /// No description provided for @voucherDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Discount'**
+  String get voucherDiscount;
 }
 
 class _AppLocalizationsDelegate

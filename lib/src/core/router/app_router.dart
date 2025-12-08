@@ -6,6 +6,7 @@ import 'package:hci_app/src/features/account/screens/add_address_page.dart';
 import 'package:hci_app/src/features/cart/screens/cart_page.dart';
 import 'package:hci_app/src/features/categories/screens/categories_page.dart';
 import 'package:hci_app/src/features/checkout/screens/checkout_page.dart';
+import 'package:hci_app/src/features/checkout/screens/voucher_selection_page.dart';
 import 'package:hci_app/src/features/delivery_tracking/screens/delivery_tracking_page.dart';
 import 'package:hci_app/src/features/item_listing/screens/item_listing_page.dart';
 import 'package:hci_app/src/features/landing/screens/landing_page.dart';
@@ -118,6 +119,13 @@ final List<RouteBase> routes = [
         pageBuilder: (context, state) => FadeTransitionPage(
           key: state.pageKey,
           child: const CheckoutPage(),
+        ),
+      ),
+      GoRoute(
+        path: '/voucher-selection',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: state.pageKey,
+          child: const VoucherSelectionPage(),
         ),
       ),
       GoRoute(
