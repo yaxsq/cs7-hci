@@ -316,4 +316,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get createAccountTitle => 'Create Your Account';
+
+  @override
+  String get createAccountSubtitle =>
+      'Let\'s get you set up for a seamless shopping experience.';
+
+  @override
+  String get fullNameHint => 'Full Name';
+
+  @override
+  String get nameValidator => 'Please enter your name';
+
+  @override
+  String get emailHint => 'Email Address';
+
+  @override
+  String get emailValidator => 'Please enter your email';
+
+  @override
+  String get phoneHint => 'Phone Number';
+
+  @override
+  String get phoneValidator => 'Please enter your phone number';
+
+  @override
+  String get addressHint => 'Delivery Address';
+
+  @override
+  String get addressValidator => 'Please enter your address';
 }

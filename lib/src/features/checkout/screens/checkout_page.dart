@@ -68,21 +68,28 @@ class _CheckoutPageState extends State<CheckoutPage> {
     bool isActive = _currentStep == stepIndex;
     Color color = isCompleted || isActive ? theme.colorScheme.tertiary : theme.dividerColor;
 
-    return Column(
-      children: [
-        CircleAvatar(
-          backgroundColor: color,
-          radius: 20,
-          child: isCompleted
-              ? Icon(Icons.check, color: theme.colorScheme.onPrimary)
-              : Text('${stepIndex + 1}', style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.onPrimary)),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          title,
-          style: theme.textTheme.bodyMedium?.copyWith(color: color, fontWeight: isActive ? FontWeight.bold : FontWeight.normal),
-        ),
-      ],
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _currentStep = stepIndex;
+        });
+      },
+      child: Column(
+        children: [
+          CircleAvatar(
+            backgroundColor: color,
+            radius: 20,
+            child: isCompleted
+                ? Icon(Icons.check, color: theme.colorScheme.onPrimary)
+                : Text('${stepIndex + 1}', style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.onPrimary)),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: theme.textTheme.bodyMedium?.copyWith(color: color, fontWeight: isActive ? FontWeight.bold : FontWeight.normal),
+          ),
+        ],
+      ),
     );
   }
 

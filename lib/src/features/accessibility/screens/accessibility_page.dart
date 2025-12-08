@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:hci_app/src/features/accessibility/accessibility_provider.dart';
 import 'package:hci_app/generated/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccessibilityPage extends StatelessWidget {
   const AccessibilityPage({super.key});
@@ -26,6 +27,8 @@ class AccessibilityPage extends StatelessWidget {
               value: accessibilityProvider.largeFont,
               onChanged: (value) {
                 accessibilityProvider.toggleLargeFont();
+                accessibilityProvider.speak(
+                    '${localizations.largerFont} ${value ? 'enabled' : 'disabled'}');
               },
               activeColor: theme.colorScheme.tertiary,
             ),
@@ -34,6 +37,8 @@ class AccessibilityPage extends StatelessWidget {
               value: accessibilityProvider.highContrast,
               onChanged: (value) {
                 accessibilityProvider.toggleHighContrast();
+                accessibilityProvider.speak(
+                    '${localizations.highContrast} ${value ? 'enabled' : 'disabled'}');
               },
               activeColor: theme.colorScheme.tertiary,
             ),
@@ -50,6 +55,8 @@ class AccessibilityPage extends StatelessWidget {
               value: accessibilityProvider.isUrdu,
               onChanged: (value) {
                 accessibilityProvider.toggleUrdu();
+                accessibilityProvider.speak(
+                    'Urdu language ${value ? 'enabled' : 'disabled'}');
               },
               activeColor: theme.colorScheme.tertiary,
             ),
@@ -59,8 +66,13 @@ class AccessibilityPage extends StatelessWidget {
                 backgroundColor: theme.colorScheme.tertiary,
                 foregroundColor: theme.colorScheme.onPrimary,
               ),
-              onPressed: () {
-                GoRouter.of(context).go('/account-setup');
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                if (prefs.getBool('hasCompletedSetup') == true) {
+                  GoRouter.of(context).go('/');
+                } else {
+                  GoRouter.of(context).go('/account-setup');
+                }
               },
               child: Text(localizations.continueButton),
             ),

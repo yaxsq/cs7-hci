@@ -306,7 +306,7 @@ class PromotionalBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
         image: const DecorationImage(
           image: NetworkImage(
-              "https://www.figma.com/api/mcp/asset/9c7b7061-216a-4d7c-a399-24c248b8bd49"),
+              "https://placehold.co/800x600"),
           fit: BoxFit.cover,
         ),
       ),

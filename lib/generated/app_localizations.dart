@@ -703,6 +703,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// No description provided for @createAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Your Account'**
+  String get createAccountTitle;
+
+  /// No description provided for @createAccountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s get you set up for a seamless shopping experience.'**
+  String get createAccountSubtitle;
+
+  /// No description provided for @fullNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullNameHint;
+
+  /// No description provided for @nameValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get nameValidator;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get emailHint;
+
+  /// No description provided for @emailValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get emailValidator;
+
+  /// No description provided for @phoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneHint;
+
+  /// No description provided for @phoneValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your phone number'**
+  String get phoneValidator;
+
+  /// No description provided for @addressHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery Address'**
+  String get addressHint;
+
+  /// No description provided for @addressValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your address'**
+  String get addressValidator;
 }
 
 class _AppLocalizationsDelegate
